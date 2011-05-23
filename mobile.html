@@ -1,0 +1,127 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/higherOrLowerMobile.css" />
+		<link rel="stylesheet" type="text/css" href="css/custom-theme/jquery-ui-1.8.5.custom.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="../jquery/jquery.flip.min.js"></script>
+		<script type="text/javascript" src="../jquery/jquery.backgroundPosition.js"></script>
+		<script type="text/javascript" src="main.js"></script>    
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width; initial-scale=0.5; maximum-scale=0.5; user-scalable=0;">
+		<title>HigherOrLower</title>
+		<link rel="icon" href="favicon.ico" type="image/x-icon" /> 
+		
+		<script type="text/javascript">                                         		
+			$(document).ready(function() {
+				$.prepareGame();				
+			});                
+		</script>
+	</head>
+	<body>
+		<div class="main" id="main">
+			<ul>
+				<li>
+					<a href="#gameTab" style="font-size:1.2em;">Game<img id="cardicon" class="icon" src="images/minicard.png"/></a>
+				</li>
+				<li>
+					<a href="#scoreTab" style="font-size:1.2em;">Scores<img id="cardicon" class="icon" src="images/score.png"/></a>
+				</li>
+				<li>
+					<a href="#drinkersTab" style="font-size:1.2em;">Top Drinkers<img id="cardicon" class="icon" src="images/beer.png"/></a>
+				</li>
+			</ul>			
+			<div id="gameTab" class="tab">
+				<table id="gameTable">
+					<tr>
+						<td>
+							<div class="newGameButton">
+								<button id="newGame" class="newGame"></button>
+								<img src="images/newGame_pressed.png" style="display:none;"></img>
+							</div>
+						</td>
+						<td>
+							<div class="gameBar">
+								<font color="#4297d7"><strong>Total Bet:&nbsp;</strong></font><span id="totalNumFingers" style="font-weight:bold;"></span>
+							</div>
+							<div id="playerBar" class="gameBar">&nbsp;</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="gamePanel ui-corner-all">
+								<div class="innerGamePanel">
+									<div id="cardDisplay">
+										<img id="card2" src="images/2.png" title="Two" style="display:none;"/>									
+										<img id="card3" src="images/3.png" title="Threee" style="display:none;"/>									
+										<img id="card4" src="images/4.png" title="Four" style="display:none;"/>									
+										<img id="card5" src="images/5.png" title="Five" style="display:none;"/>									
+										<img id="card6" src="images/6.png" title="Six" style="display:none;"/>									
+										<img id="card7" src="images/7.png" title="Seven" style="display:none;"/>									
+										<img id="card8" src="images/8.png" title="Eight" style="display:none;"/>									
+										<img id="card9" src="images/9.png" title="Nine" style="display:none;"/>									
+										<img id="card10" src="images/10.png" title="Ten" style="display:none;"/>									
+										<img id="card11" src="images/11.png" title="Jack" style="display:none;"/>									
+										<img id="card12" src="images/12.png" title="Queen" style="display:none;"/>									
+										<img id="card13" src="images/13.png" title="King" style="display:none;"/>									
+										<img id="card14" src="images/14.png" title="Ace" style="display:none;"/>									
+									</div>							
+								</div>											
+							</div>					
+						</td>					
+						<td>						
+							<div class="infoPanel">							
+								<div id="infoBar" class="infoBar"></div>							
+								<div id="pictureDisplay" class="ui-corner-all" style="display:none;"></div>												
+							</div>					
+						</td>				
+					</tr>
+					<tr>
+						<td>
+							<div class="gameButtons">								
+								<button id="higher" class="gameM curvyH" title="Higher">Higher</button>								
+								<button id="lower" class="gameM curvyL" title="Lower">Lower</button>						
+							</div>	
+						</td>
+						<td>
+							<div class="infoSlider ui-corner-all" style="display:none;">								
+								<font color="#4297d7">Fingers Bet: </font><span id="currentNumFingers" style="font-weight:bold;"></span>								
+								<BR/><BR/>
+								<button id="bet0" title="Bet 0 fingers." class="betButton">0</button>
+								<button id="bet1" title="Bet 1 finger." class="betButton">1</button>
+								<button id="bet2" title="Bet 2 fingers." class="betButton">2</button>
+								<button id="bet3" title="Bet 3 fingers." class="betButton">3</button>
+								<button id="bet4" title="Bet 4 fingers." class="betButton">4</button>								
+							</div>	
+						</td>
+					</tr>
+				</table>
+				<div id="newGameForm" style="display:none;">
+						<button id="addPlayer" title="Click here to add a player">Add Player</button>
+						<button id="removePlayer" title="Click here to remove a player">Remove Player</button>
+						<BR/><BR/>
+						<input type="checkbox" id="fullBetting" title="Click here to enable betting on any card."><span id="fullBettingText">Bet on any card</span></input><BR/>			
+						<div id="player_1">Player 1: <input title="Please enter your name" MAXLENGTH=8></input> or select existing: <select title="Please select a player"></select></div>	
+				</div>
+				<div id="newGameButtons" style="display:none;">
+						<br/>
+						<button id="startGame" title="Click here to start the game" class="formButton">Start Game</button>
+						<button id="cancelGame" title="Click here to cancel." class="formButton">Cancel</button>
+				</div>
+			</div>				
+			<div id="scoreTab" class="tab"></div>
+			<div id="drinkersTab" class="tab">
+				<table>
+					<tr>
+					<th><img class="spinner" src="images/spinner.gif" style="text-align:center;"/></th>
+					<th>Player</th>
+					<th><a href="javascript:$.generateDrinkersTab('max_finger')">Most Fingers Drank</a></th>
+					<th><a href="javascript:$.generateDrinkersTab('max_correct')">Most Correct Guesses</a></th>
+					</tr>
+				</table>
+			</div>
+		</div>	
+	</body>
+</html>
