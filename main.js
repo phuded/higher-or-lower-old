@@ -159,7 +159,14 @@ $.generateDrinkersTab = function(orderBy){
 			data:"orderBy="+orderBy,
 			success: function(json){							
 				$.each(json, function(index,value){
-					table.append("<tr><td>"+(index+1)+"</td><td>" + value.name + "</td><td>" + value.maxFingers + "</td><td>" + value.maxCorrect + "</td></tr>");
+					var lastPlayed = value.lastPlayed;
+					if(!lastPlayed){
+						lastPlayed = "";
+					}
+					else{
+						lastPlayed = lastPlayed.substring(8,10) + "/" + lastPlayed.substring(5,7) + "/"+ lastPlayed.substring(0,4);
+					}
+					table.append("<tr><td>"+(index+1)+"</td><td>" + value.name + "</td><td>" + value.maxFingers + "</td><td>" + value.maxCorrect + "</td><td>" + lastPlayed + "</td></tr>");
 				});
 				$.showLoading(false);
 			},
