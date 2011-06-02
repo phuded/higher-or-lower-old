@@ -253,13 +253,21 @@ table.scoreTable tr td.incorrect{
 
 #drinkersTab table tr th{
 	background-color:#F4F4F4;
-	width: 150px;
+	width: 145px;
 	height:50px;
 	overflow:hidden;
 }
 
+.asc{
+	background-color:#7AB9F0 !important;
+}
+
+.desc{
+	background-color:#FF3333 !important;
+}
+
 #drinkersTab table tr th:first-child{
-	width: 100px;
+	width: 70px;
 }
 
 #drinkersTab table tr td:first-child{
