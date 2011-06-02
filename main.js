@@ -110,7 +110,7 @@ $.prepareGame = function(){
 	//Bind drinkers tab
 	$('#main').bind('tabsselect', function(event, ui) {
 		if(ui.index == 2){
-			$.generateDrinkersTab("max_finger");
+			$.generateDrinkersTab(2,"max_finger","desc");
 		}
 			
 	});
@@ -147,16 +147,35 @@ $.prepareGame = function(){
 	
 };
 
-$.generateDrinkersTab = function(orderBy){
+$.generateDrinkersTab = function(id,orderBy,dir){
+	//Clear table
 	var table = $("#drinkersTab table");
 	table.find("tr:gt(0)").remove();
 	$.showLoading(true);
 	
+	//Set column state
+	var header = table.find("tr th:eq("+id+")");
+	
+	var sDir = header.data("dir");
+	
+	//If already exists - flip
+	if(sDir){
+		header.data("dir",sDir=="asc"?"desc":"asc");
+	}
+	//else set
+	else{
+		header.data("dir",dir);
+	}
+	
+	sDir = header.data("dir");
+	table.find("tr th").removeClass("asc desc");
+	header.addClass(sDir);
+
 	$.ajax({
 			type: "POST",
 			url: "listScores",
 			dataType:"json",
-			data:"orderBy="+orderBy,
+			data:"orderBy="+orderBy+"&dir="+sDir,
 			success: function(json){							
 				$.each(json, function(index,value){
 					var lastPlayed = value.lastPlayed;

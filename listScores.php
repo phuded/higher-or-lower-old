@@ -5,7 +5,7 @@ if (!$link) {
 }
 mysql_select_db("higherorlower", $link);
 
-$result = mysql_query("SELECT * FROM player order by $_POST[orderBy] desc limit 10");
+$result = mysql_query("SELECT * FROM player order by $_POST[orderBy] $_POST[dir] limit 10");
 
 while($row = mysql_fetch_array($result)){
   $arrayRes[] = array('name'=>$row['name'],'maxFingers'=>$row['max_finger'],'maxCorrect'=>$row['max_correct'],'lastPlayed'=>$row['last_played']);
