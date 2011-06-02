@@ -153,23 +153,33 @@ $.generateDrinkersTab = function(id,orderBy,dir){
 	table.find("tr:gt(0)").remove();
 	$.showLoading(true);
 	
-	//Set column state
-	var header = table.find("tr th:eq("+id+")");
+		
+	//Get state
 	
-	var sDir = header.data("dir");
+	var sDir = table.data("sort");
 	
-	//If already exists - flip
+	//If a column has ever been stored
 	if(sDir){
-		header.data("dir",sDir=="asc"?"desc":"asc");
+		//if same column
+		if(sDir.col==id){
+			table.data("sort",sDir.dir=="asc"?{col:id,dir:"desc"}:{col:id,dir:"asc"});
+		}
+		//else set
+		else{
+			table.data("sort",{col:id,dir:dir});
+		}
 	}
 	//else set
 	else{
-		header.data("dir",dir);
+		table.data("sort",{col:id,dir:dir});
 	}
 	
-	sDir = header.data("dir");
+	//Set var as actual direction
+	sDir = table.data("sort").dir;
+	//Remove classes from other columns
 	table.find("tr th").removeClass("asc desc");
-	header.addClass(sDir);
+	//Add class to current columns
+	table.find("tr th:eq("+id+")").addClass(sDir);
 
 	$.ajax({
 			type: "POST",
