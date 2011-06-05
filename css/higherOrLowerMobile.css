@@ -141,6 +141,18 @@ button.newGame:hover {
 .curvyH { -moz-border-radius: 55px 15px 15px 15px !important; -webkit-border-radius: 55px 15px 15px 15px !important; border-radius: 55px 15px 15px 15px !important; }
 .curvyL { -moz-border-radius: 15px 15px 55px 15px !important; -webkit-border-radius: 15px 15px 55px 15px !important; border-radius: 15px 15px 55px 15px !important; }
 
+.correctGuess{
+	font-size:2.0em;
+	color:#4297D7;
+}
+.incorrectGuess{
+	font-size:1.7em;
+	color:red;
+}
+.fingers{
+	font-size:2.2em;
+}
+
 
 button#cancelGame span{
 	color:black;

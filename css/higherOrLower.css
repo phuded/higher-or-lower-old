@@ -38,8 +38,8 @@ body{
 }
 
 .gameBar{
-	margin: 5px 0 0 10px;
-	width:255px;
+	margin: 5px 0 0 5px;
+	width:260px;
 	font-size:1.1em;
 }
 
@@ -109,8 +109,9 @@ div.gameButtons{
 	text-align:center;
 	margin-top:40px;
 	margin-left:20px;
-	border:2px solid #4297D7;
+	border:3px solid #4297D7;
 	padding:15px;
+	font-weight:bold;
 }
 
 #bettingSlider {
@@ -161,6 +162,17 @@ button.newGame:hover {
 
 .curvy { -moz-border-radius: 15px !important; -webkit-border-radius: 15px !important; border-radius: 15px!important; }
 
+.correctGuess{
+	font-size:2.0em;
+	color:#4297D7;
+}
+.incorrectGuess{
+	font-size:1.7em;
+	color:red;
+}
+.fingers{
+	font-size:2.8em;
+}
 
 /*Form */
 #newGameForm div{
@@ -257,18 +269,19 @@ table.scoreTable tr td.incorrect{
 	overflow:hidden;
 }
 
-.asc{
-	background:url('../images/up_sort.png') no-repeat right #F4F4F4 !important;
-}
-
-.desc{
-	background:url('../images/down_sort.png') no-repeat right #F4F4F4 !important;
-}
-
 #drinkersTab table tr th:first-child{
 	width: 70px;
 }
 
 #drinkersTab table tr td:first-child{
 	background-color:#F4F4F4;
+}
+
+
+.asc{
+	background:url('../images/up_sort.png') no-repeat right #F4F4F4 !important;
+}
+
+.desc{
+	background:url('../images/down_sort.png') no-repeat right #F4F4F4 !important;
 }

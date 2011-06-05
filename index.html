@@ -8,7 +8,8 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"></script>
 		<script type="text/javascript" src="../jquery/jquery.flip.min.js"></script>
 		<script type="text/javascript" src="../jquery/jquery.backgroundPosition.js"></script>
-		<script type="text/javascript" src="main.js"></script>    
+		<script type="text/javascript" src="game.js"></script>
+		<script type="text/javascript" src="play.js"></script>    		
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>HigherOrLower</title>
 		<link rel="icon" href="favicon.ico" type="image/x-icon" /> 
@@ -21,7 +22,7 @@
 	</head>
 	<body>
 		<div title="Higher or Lower" class="header">
-			<div class="banner ui-corner-all"></div><strong>v3.4</strong>
+			<div class="banner ui-corner-all"></div><strong>v3.6</strong>
 		</div>
 
 		<div class="main" id="main">
@@ -48,6 +49,7 @@
 						<td>
 							<div class="gameBar">
 								<font color="#4297d7"><strong>Total Bet:&nbsp;</strong></font><span id="totalNumFingers" style="font-weight:bold;"></span>
+								<span style="font-size:0.8em;" id="cardsLeft"></span>
 							</div>
 							<div id="playerBar" class="gameBar">&nbsp;</div>
 						</td>
@@ -58,7 +60,7 @@
 								<div class="innerGamePanel">
 									<div id="cardDisplay">
 										<img id="card2" src="images/2.png" title="Two" style="display:none;"/>									
-										<img id="card3" src="images/3.png" title="Threee" style="display:none;"/>									
+										<img id="card3" src="images/3.png" title="Three" style="display:none;"/>									
 										<img id="card4" src="images/4.png" title="Four" style="display:none;"/>									
 										<img id="card5" src="images/5.png" title="Five" style="display:none;"/>									
 										<img id="card6" src="images/6.png" title="Six" style="display:none;"/>									
@@ -82,8 +84,8 @@
 							<div class="infoPanel">							
 								<div id="infoBar" class="infoBar"></div>							
 								<div id="pictureDisplay" class="ui-corner-all" style="display:none;"></div>							
-								<div class="infoSlider ui-corner-all" style="display:none;font-weight:bold;">								
-									<font color="#4297d7">Number of fingers bet: </font><span id="currentNumFingers" style="font-weight:bold;"></span>								
+								<div class="infoSlider ui-corner-all" style="display:none;">								
+									<font color="#4297d7">Number of fingers bet: </font><span id="currentNumFingers""></span>								
 									<BR/><BR/>								
 									<div id="bettingSlider"></div>							
 								</div>						
@@ -91,18 +93,22 @@
 						</td>				
 					</tr>			
 				</table>
-				<div id="newGameForm" style="display:none;">
-						<button id="addPlayer" title="Click here to add a player">Add Player</button>
-						<button id="removePlayer" title="Click here to remove a player">Remove Player</button>
-						<BR/><BR/>
-						<input type="checkbox" id="fullBetting" title="Click here to enable betting on any card."><span id="fullBettingText">Bet on any card</span></input><BR/>			
-						<div id="player_1">Player 1: <input title="Please enter your name" MAXLENGTH=8></input> or select existing: <select title="Please select a player"></select></div>	
+				<div id="newGamePanel" style="display:none;">
+					<div id="newGameForm" class="newGameForm">
+							<button id="addPlayer" title="Click here to add a player">Add Player</button>
+							<button id="removePlayer" title="Click here to remove a player">Remove Player</button>
+							<BR/><BR/>
+							<input type="checkbox" id="fullBetting" title="Click here to enable betting on any card."><span class="checkboxText">Bet on any card</span></input>
+							<input type="checkbox" id="removeCards" title="Click here so cards which are played are removed from the pack"><span class="checkboxText">Remove played Cards</span></input>
+							<BR/>			
+							<div id="player_1">Player 1: <input title="Please enter your name" MAXLENGTH=8></input> or select existing: <select title="Please select a player"></select></div>	
+					</div>
+					<div id="newGameButtons" class="newGameForm">
+							<br/>
+							<button id="startGame" title="Click here to start the game" class="formButton">Start Game</button>
+							<button id="cancelGame" title="Click here to cancel." class="formButton">Cancel</button>
+					</div>
 				</div>
-				<div id="newGameButtons" style="display:none;">
-						<br/>
-						<button id="startGame" title="Click here to start the game" class="formButton">Start Game</button>
-						<button id="cancelGame" title="Click here to cancel." class="formButton">Cancel</button>
-				</div>				
 			</div>				
 			<div id="scoreTab" class="tab"></div>
 			<div id="drinkersTab" class="tab">
