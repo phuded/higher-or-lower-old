@@ -149,6 +149,7 @@ $.prepareGame = function(){
 	//Reset options
 	$("#fullBetting").attr('checked',false);
 	$("#removeCards").attr('checked',false);
+	$("#wholePack").attr('checked',false);
 	
 };
 
@@ -199,7 +200,7 @@ $.startGame = function(){
 	$("#infoBar").html("");
 	
 	//New card
-	currentCard = (Math.floor(Math.random()*13)) + 2;
+	currentCard = cards[Math.floor(Math.random()*cards.length)];
 	$.displayCard(currentCard);
 }
 

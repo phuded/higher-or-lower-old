@@ -122,6 +122,18 @@ div.gameButtons{
 	border:1px solid #4297D7;
 }
 
+.correctGuess{
+	font-size:2.0em;
+	color:#4297D7;
+}
+.incorrectGuess{
+	font-size:1.7em;
+	color:red;
+}
+.fingers{
+	font-size:2.8em;
+}
+
 /* Buttons */
 
 /*Higher/lower buttons */
@@ -162,30 +174,18 @@ button.newGame:hover {
 
 .curvy { -moz-border-radius: 15px !important; -webkit-border-radius: 15px !important; border-radius: 15px!important; }
 
-.correctGuess{
-	font-size:2.0em;
-	color:#4297D7;
-}
-.incorrectGuess{
-	font-size:1.7em;
-	color:red;
-}
-.fingers{
-	font-size:2.8em;
-}
 
 /*Form */
-#newGameForm div{
-	margin-top:10px;
-}
-
-#newGameForm div{
-	padding:5px;
-	font-size:1.2em;
-}
 
 #newGameForm span{
 	padding:10px;
+	font-size:1.1em;
+}
+
+#newGameForm div{
+	margin-top:10px;
+	padding:5px;
+	font-size:1.2em;
 }
 
 #newGameForm div input{
@@ -196,20 +196,32 @@ button.newGame:hover {
 	width:120px;
 }
 
-button.formButton{
-	height:70px;
-	border: 2px solid #D3D3D3 !important;
+#newGameForm label{
+	padding:5px 25px 5px 2px;
+	font-size:1.1em;
 }
 
-button.formButton span{
+/*Start and Cancel buttons*/
+#newGameButtons button.formButton{
+	height:70px;
+	border: 3px solid #D3D3D3 !important;
+}
+
+#newGameButtons button.formButton span{
 	font-weight:bold;
 	font-size:1.3em;
 	color:#336003;
 }
 
-button#cancelGame span{
+#newGameButtons button#cancelGame span{
 	color:black;
 }
+
+.formIcon{
+	vertical-align:middle;
+	margin-right:6px;
+}
+
 
 /*Scores tab */
 
@@ -276,7 +288,6 @@ table.scoreTable tr td.incorrect{
 #drinkersTab table tr td:first-child{
 	background-color:#F4F4F4;
 }
-
 
 .asc{
 	background:url('../images/up_sort.png') no-repeat right #F4F4F4 !important;

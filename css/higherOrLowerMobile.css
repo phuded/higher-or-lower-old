@@ -107,6 +107,18 @@ button.betButton{
 	border:2px solid #4297D7 !important;
 }
 
+.correctGuess{
+	font-size:2.0em;
+	color:#4297D7;
+}
+.incorrectGuess{
+	font-size:1.7em;
+	color:red;
+}
+.fingers{
+	font-size:2.2em;
+}
+
 /* Buttons */
 
 /*Higher/lower buttons */
@@ -141,30 +153,23 @@ button.newGame:hover {
 .curvyH { -moz-border-radius: 55px 15px 15px 15px !important; -webkit-border-radius: 55px 15px 15px 15px !important; border-radius: 55px 15px 15px 15px !important; }
 .curvyL { -moz-border-radius: 15px 15px 55px 15px !important; -webkit-border-radius: 15px 15px 55px 15px !important; border-radius: 15px 15px 55px 15px !important; }
 
-.correctGuess{
-	font-size:2.0em;
-	color:#4297D7;
-}
-.incorrectGuess{
-	font-size:1.7em;
-	color:red;
-}
-.fingers{
-	font-size:2.2em;
-}
-
-
-button#cancelGame span{
-	color:black;
-}
 
 /*Form */
+#newGameForm button{
+	font-size:1.0em;
+}
+
 #newGameForm div{
-	margin-top:10px;
+	margin-top:8px;
 }
 
 #newGameForm div,#newGameForm span{
 	padding:9px;
+	font-size:1.3em;
+}
+
+#newGameForm label{
+	padding:5px 15px 5px 0;
 	font-size:1.3em;
 }
 
@@ -176,15 +181,25 @@ button#cancelGame span{
 	width:120px;
 }
 
-button.formButton{
+/*Start and Cancel buttons*/
+#newGameButtons button.formButton{
 	height:70px;
-	border: 2px solid #D3D3D3 !important;
+	border: 3px solid #D3D3D3 !important;
 }
 
-button.formButton span{
+#newGameButtons button.formButton span{
 	font-weight:bold;
 	font-size:1.3em;
 	color:#336003;
+}
+
+#newGameButtons button#cancelGame span{
+	color:black;
+}
+
+.formIcon{
+	vertical-align:middle;
+	margin-right:6px;
 }
 
 /*Scores tab */
@@ -247,14 +262,6 @@ table.scoreTable tr td.incorrect{
 	overflow:hidden;
 }
 
-.asc{
-	background-color:#7AB9F0 !important;
-}
-
-.desc{
-	background-color:#FF3333 !important;
-}
-
 #drinkersTab table tr th:first-child{
 	width: 35px;
 }
@@ -264,4 +271,12 @@ table.scoreTable tr td.incorrect{
 
 #drinkersTab table tr td:first-child{
 	background-color:#F4F4F4;
+}
+
+.asc{
+	background-color:#7AB9F0 !important;
+}
+
+.desc{
+	background-color:#FF3333 !important;
 }

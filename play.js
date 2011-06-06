@@ -11,7 +11,7 @@ $.nextTurn = function(higher){
 	//Get new card 
 	var nextCard = cards[Math.floor(Math.random()*cards.length)];
 	//Display card
-	$.displayCard(nextCard, nextCard>=currentCard);
+	$.displayCard(nextCard, $.compareCards(nextCard,currentCard));
 	//Display results, and update scores and set next player
 	var correct = $.displayTurnResults(higher,nextCard);
 	
@@ -21,15 +21,16 @@ $.nextTurn = function(higher){
 
 
 //Display the card
-$.displayCard = function(cardNum, higher){
-
+$.displayCard = function(card, higher){
 	$("#cardDisplay img:visible").hide();
-	$("#cardDisplay img#card"+cardNum).show();
+	$("#cardDisplay img#card"+card).show();
 	
-	$("#cardDisplay img#card"+cardNum).flip({
+	$("#cardDisplay img#card"+card).flip({
 		direction:higher?'lr':'rl',
 		speed: 200
 	});
+	
+	var cardNum = parseInt(card.split("_")[0]);
 	
 	//Check if can display slider
 	if((cardNum>5 & cardNum<11) || $("#fullBetting").attr('checked')){
@@ -41,13 +42,13 @@ $.displayCard = function(cardNum, higher){
 	
 	//Remove card if remove cards is enabled
 	if($("#removeCards").attr('checked')){
-		cards.remove(cards.indexOf(cardNum));
+		cards.remove(cards.indexOf(card));
 		if(cards.length == 0){
 			//Reset pack
 			$.resetPack();
 		}
 	}
-	$("#cardsLeft").html("&nbsp;("+(cards.length==13?"<u>13</u>":cards.length) + " "+(cards.length>1?"cards":"card") + " left)");
+	$("#cardsLeft").html("&nbsp;("+((cards.length==13 || cards.length==52)?"<u>"+cards.length+"</u>":cards.length) + " "+(cards.length>1?"cards":"card") + ")");
 };
 
 //Determine if correct, update picture and text
@@ -57,7 +58,7 @@ $.displayTurnResults = function(higher, nextCard){
 	var oldPlayerName = players[currentPlayer];
 	//Depending on whether user pressed higher or lower - compare current card to next and display results
 	if(higher){
-		if(nextCard >= currentCard){
+		if($.compareCards(nextCard,currentCard)){
 			$("#infoBar").html("<span class='correctGuess'>Correct!</span>");
 			correct=true;
 		}
@@ -66,7 +67,7 @@ $.displayTurnResults = function(higher, nextCard){
 		}
 	}
 	else{
-		if(nextCard <= currentCard){
+		if($.compareCards(currentCard,nextCard)){
 			$("#infoBar").html("<span class='correctGuess'>Correct!</span>");		
 			correct=true;		
 		}
@@ -214,7 +215,10 @@ $.generateDrinkersTab = function(id,orderBy,dir){
 			url: "listScores",
 			dataType:"json",
 			data:"orderBy="+orderBy+"&dir="+sDir,
-			success: function(json){							
+			success: function(json){
+				//Remove again
+				table.find("tr:gt(0)").remove();
+				//Populate
 				$.each(json, function(index,value){
 					var lastPlayed = value.lastPlayed;
 					if(!lastPlayed){
@@ -273,6 +277,7 @@ $.resetForm = function(){
 	//Reset betting options
 	//$("#fullBetting").attr('checked',false);
 	//$("#removeCards").attr('checked',false);
+	//$("#wholePack").attr('checked',false);
 }
 
 //Show loading on drinkers tab
@@ -287,7 +292,27 @@ $.showLoading = function(show){
 
 //Show loading on drinkers tab
 $.resetPack = function(){
-	cards = [2,3,4,5,6,7,8,9,10,11,12,13,14];
+	if($("#wholePack").attr('checked')){
+		cards = new Array();
+		for(var i =2;i<15;i++){
+			cards.push(i+"_hearts");
+			cards.push(i+"_diamonds");
+			cards.push(i+"_clubs");
+			cards.push(i+"_spades");
+		}
+	}
+	else{
+		cards = new Array();
+		for(var i =2;i<15;i++){
+			cards.push(i+"_hearts");
+
+		}
+	}
+};
+
+$.compareCards = function(next,current){
+	//Returns true if card 1 >= card 2
+	return (parseInt(next.split("_")[0]) >= parseInt(current.split("_")[0]));
 };
 
 Array.prototype.remove = function(from, to) {
