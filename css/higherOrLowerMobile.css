@@ -42,7 +42,7 @@ body{
 
 .innerGamePanel{
 	margin: 12px 0 0 10px;
-	background-color: lightgrey;
+	background-color: #E3E3E3;
 	background-image:url(../images/back.jpg);
 	background-repeat:no-repeat;
 	background-position:0px 375px;
@@ -95,15 +95,19 @@ div.gameButtons{
 	text-align:center;
 	margin-left:5px;
 	margin-right:5px;
-	border:3px solid #4297D7;
+	border:3px outset lightGrey;
 	padding-top:4px;
-	padding-bottom:5px;
+	padding-bottom:3px;
 	font-size:1.1em;
 	font-weight:bold;
 }
 
+.infoSlider > span{
+	font-size:1.2em;
+}
+
 button.betButton{
-	margin-top:3px;
+	margin-bottom:4px;
 	border:2px solid #4297D7 !important;
 }
 

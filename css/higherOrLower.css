@@ -53,7 +53,7 @@ body{
 
 .innerGamePanel{
 	margin: 12px 0 0 10px;
-	background-color: lightgrey;
+	background-color: #f8ecd9;
 	background-image:url(../images/back.jpg);
 	background-repeat:no-repeat;
 	background-position:0px 375px;
@@ -109,7 +109,7 @@ div.gameButtons{
 	text-align:center;
 	margin-top:40px;
 	margin-left:20px;
-	border:3px solid #4297D7;
+	border:3px outset lightGrey;
 	padding:15px;
 	font-weight:bold;
 }
