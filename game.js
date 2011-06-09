@@ -121,10 +121,21 @@ $.prepareGame = function(){
 		if($("#gameTable").is(":visible") & players.length>0){
 			//Up
 			if(e.keyCode == 38){
+				var hButton = $("#higher");
+				hButton.css({'background' : 'url("images/up_arrow_glow.png") no-repeat scroll 0 0 transparent'});
+				setTimeout(function() {
+					hButton.removeAttr('style');
+
+				}, 200);
 				$.nextTurn(true);
 			}
 			//Down
 			else if (e.keyCode == 40){
+				var lButton = $("#lower");
+				lButton.css({'background' : 'url("images/down_arrow_glow.png") no-repeat scroll 0 0 transparent'});
+				setTimeout(function() {
+					lButton.removeAttr('style');
+				}, 200);
 				$.nextTurn(false);
 			}
 			//Left or Right
