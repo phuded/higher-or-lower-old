@@ -156,6 +156,7 @@ button.newGame:hover {
 
 .curvyH { -moz-border-radius: 55px 15px 15px 15px !important; -webkit-border-radius: 55px 15px 15px 15px !important; border-radius: 55px 15px 15px 15px !important; }
 .curvyL { -moz-border-radius: 15px 15px 55px 15px !important; -webkit-border-radius: 15px 15px 55px 15px !important; border-radius: 15px 15px 55px 15px !important; }
+.curvy { -moz-border-radius: 15px !important; -webkit-border-radius: 15px !important; border-radius: 15px!important; }
 
 
 /*Form */
@@ -173,8 +174,10 @@ button.newGame:hover {
 }
 
 #newGameForm label{
-	padding:5px 15px 5px 0;
+	padding:6px;
+	margin-right:5px;
 	font-size:1.3em;
+	border: 1px solid transparent;
 }
 
 #newGameForm div input{

@@ -158,9 +158,16 @@ $.prepareGame = function(){
 	});
 	
 	//Reset options
-	$("#fullBetting").attr('checked',false);
-	$("#removeCards").attr('checked',false);
-	$("#wholePack").attr('checked',false);
+	$("#fullBetting,#removeCards,#wholePack").attr('checked',false).click(function(){
+		if($(this).attr("checked")){
+			$(this).next().css({"background":"#8BC4E0","border":"1px solid white"});
+			$(this).next().addClass("curvy");
+		}
+		else{
+			$(this).next().removeAttr('style');
+			$(this).next().removeClass("curvy");
+		}
+	});	
 	
 };
 

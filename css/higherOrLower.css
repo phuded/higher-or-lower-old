@@ -188,6 +188,10 @@ button.newGame:hover {
 	font-size:1.2em;
 }
 
+#newGameForm div#player_1{
+	margin-top:15px;
+}
+
 #newGameForm div input{
 	width:110px;
 }
@@ -197,7 +201,9 @@ button.newGame:hover {
 }
 
 #newGameForm label{
-	padding:5px 25px 5px 2px;
+	padding:6px;
+	border: 1px solid transparent;
+	margin-right:7px;
 	font-size:1.1em;
 }
 

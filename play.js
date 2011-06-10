@@ -275,9 +275,7 @@ $.resetForm = function(){
 	$("#newGameForm div:(0) select").html("");
 	$("#player_1 input").val("");
 	//Reset betting options
-	//$("#fullBetting").attr('checked',false);
-	//$("#removeCards").attr('checked',false);
-	//$("#wholePack").attr('checked',false);
+	//$("#fullBetting,#removeCards,#wholePack").attr('checked',false);
 }
 
 //Show loading on drinkers tab
