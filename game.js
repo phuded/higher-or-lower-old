@@ -160,7 +160,7 @@ $.prepareGame = function(){
 	//Reset options
 	$("#fullBetting,#removeCards,#wholePack").attr('checked',false).click(function(){
 		if($(this).attr("checked")){
-			$(this).next().css({"background":"#8BC4E0","border":"1px solid white"});
+			$(this).next().css({"background":"#8BC4E0"});
 			$(this).next().addClass("curvy");
 		}
 		else{

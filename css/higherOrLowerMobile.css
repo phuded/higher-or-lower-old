@@ -177,7 +177,6 @@ button.newGame:hover {
 	padding:6px;
 	margin-right:5px;
 	font-size:1.3em;
-	border: 1px solid transparent;
 }
 
 #newGameForm div input{
