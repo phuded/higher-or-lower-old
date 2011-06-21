@@ -182,7 +182,7 @@ $.startGame = function(){
 	
 	players = new Array();
 	playersScores = new Array();
-	//All cards available
+	//Restore all cards based on toggle
 	$.resetPack();
 	
 	//Reset scoretab
