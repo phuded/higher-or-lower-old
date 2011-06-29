@@ -44,11 +44,11 @@ $.displayCard = function(card, higher){
 	if($("#removeCards").attr('checked')){
 		cards.remove(cards.indexOf(card));
 		if(cards.length == 0){
-			//Reset pack
+			//If no cards left - reset pack
 			$.resetPack();
 		}
 	}
-	$("#cardsLeft").html("&nbsp;("+((cards.length==13 || cards.length==52)?"<u>"+cards.length+"</u>":cards.length) + " "+(cards.length>1?"cards":"card") + ")");
+	$("#cardsLeft").html("&nbsp;("+(((cards.length==13 & !$("#wholePack").attr('checked')) || cards.length==52)?"<u>"+cards.length+"</u>":cards.length) + " "+(cards.length>1?"cards":"card") + " left)");
 };
 
 //Determine if correct, update picture and text
