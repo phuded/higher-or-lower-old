@@ -1,0 +1,61 @@
+.main{
+	margin-bottom:-12px;
+}
+
+.main p{
+	text-align:center;
+}
+
+.col1{
+	width:230px !important;
+}
+
+.col2{
+	width:60px !important;
+	text-align:center;
+	position:relative;
+	bottom: 10px;
+}
+
+#cardDisplay{
+	margin: 0 0 0 32px;
+	width:147px;
+	height:194px;
+	border:2px inset white;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+
+}
+
+#cardDisplay img{
+	width:135px;
+	height:180px;
+	margin: 7px 0 0 6px;
+}
+
+/* Betting buttons */
+span.betButton{	
+	font-size:0.9em;
+}
+
+/*Lee pop up */
+
+div#pictureContainer{
+	text-align:center;
+}
+
+#pictureDisplay{
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom:5px;
+	width:214px;
+	height:214px;
+	background:url(../images/drink.jpg);
+	border:1px solid #7AB9F0;
+}
+
+span#drinkMessage{
+	font-size:1.1em;
+	color:red;
+}

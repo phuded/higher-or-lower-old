@@ -1,0 +1,198 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0;">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<link rel="apple-touch-icon" href="images/iphone-icon.png" />
+		<link rel="apple-touch-icon" sizes="72x72" href="images/iphone-iconM.png" />
+		<link rel="apple-touch-icon" sizes="114x114" href="images/iphone-iconL.png" />
+		<!--http://stackoverflow.com/questions/5767565/jquery-mobile-viewport-hide-safari-header-and-footer-->
+
+		<title>HigherOrLower</title>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/m.css" />
+		<script src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
+
+		<script type="text/javascript" src="m.js"></script>   
+		
+		<script type="text/javascript">                                         		
+			$(document).ready(function() {
+				$.prepareGame();	
+			});                
+		</script>
+	</head>
+	<body>
+		<div data-role="page" id="game" class="page" data-theme="b">
+			<div data-role="header" data-theme="a">
+					<div id="navbar" data-role="navbar">
+						<ul>
+							<li><a href="#game" data-transition="none" class="ui-btn-active">Game</a></li>
+							<li><a href="#scores" data-transition="none">Scores</a></li>
+							<li><a href="#drinkers" data-transition="none">Top Drinkers</a></li>
+						</ul>
+					</div>
+			</div>
+			<div class="main" data-role="content">	
+				<div class="ui-grid-a">
+					<a href="#form" data-role="button" data-transition="fade">New Game</a>
+					<p><span id="playerName">&nbsp;</span></p>
+					
+					<div class="ui-block-a col1">					
+							<div id="cardDisplay">
+										<img id="card2_hearts" src="images/cards/2_hearts.jpg" title="Two" style="display:none;"/>									
+										<img id="card3_hearts" src="images/cards/3_hearts.jpg" title="Three" style="display:none;"/>									
+										<img id="card4_hearts" src="images/cards/4_hearts.jpg" title="Four" style="display:none;"/>									
+										<img id="card5_hearts" src="images/cards/5_hearts.jpg" title="Five" style="display:none;"/>									
+										<img id="card6_hearts" src="images/cards/6_hearts.jpg" title="Six" style="display:none;"/>									
+										<img id="card7_hearts" src="images/cards/7_hearts.jpg" title="Seven" style="display:none;"/>									
+										<img id="card8_hearts" src="images/cards/8_hearts.jpg" title="Eight" style="display:none;"/>									
+										<img id="card9_hearts" src="images/cards/9_hearts.jpg" title="Nine" style="display:none;"/>									
+										<img id="card10_hearts" src="images/cards/10_hearts.jpg" title="Ten" style="display:none;"/>									
+										<img id="card11_hearts" src="images/cards/11_hearts.jpg" title="Jack" style="display:none;"/>									
+										<img id="card12_hearts" src="images/cards/12_hearts.jpg" title="Queen" style="display:none;"/>									
+										<img id="card13_hearts" src="images/cards/13_hearts.jpg" title="King" style="display:none;"/>									
+										<img id="card14_hearts" src="images/cards/14_hearts.jpg" title="Ace" style="display:none;"/>
+										<img id="card2_clubs" src="images/cards/2_clubs.jpg" title="Two" style="display:none;"/>									
+										<img id="card3_clubs" src="images/cards/3_clubs.jpg" title="Three" style="display:none;"/>									
+										<img id="card4_clubs" src="images/cards/4_clubs.jpg" title="Four" style="display:none;"/>									
+										<img id="card5_clubs" src="images/cards/5_clubs.jpg" title="Five" style="display:none;"/>									
+										<img id="card6_clubs" src="images/cards/6_clubs.jpg" title="Six" style="display:none;"/>									
+										<img id="card7_clubs" src="images/cards/7_clubs.jpg" title="Seven" style="display:none;"/>									
+										<img id="card8_clubs" src="images/cards/8_clubs.jpg" title="Eight" style="display:none;"/>									
+										<img id="card9_clubs" src="images/cards/9_clubs.jpg" title="Nine" style="display:none;"/>									
+										<img id="card10_clubs" src="images/cards/10_clubs.jpg" title="Ten" style="display:none;"/>									
+										<img id="card11_clubs" src="images/cards/11_clubs.jpg" title="Jack" style="display:none;"/>									
+										<img id="card12_clubs" src="images/cards/12_clubs.jpg" title="Queen" style="display:none;"/>									
+										<img id="card13_clubs" src="images/cards/13_clubs.jpg" title="King" style="display:none;"/>									
+										<img id="card14_clubs" src="images/cards/14_clubs.jpg" title="Ace" style="display:none;"/>
+										<img id="card2_spades" src="images/cards/2_spades.jpg" title="Two" style="display:none;"/>									
+										<img id="card3_spades" src="images/cards/3_spades.jpg" title="Three" style="display:none;"/>									
+										<img id="card4_spades" src="images/cards/4_spades.jpg" title="Four" style="display:none;"/>									
+										<img id="card5_spades" src="images/cards/5_spades.jpg" title="Five" style="display:none;"/>									
+										<img id="card6_spades" src="images/cards/6_spades.jpg" title="Six" style="display:none;"/>									
+										<img id="card7_spades" src="images/cards/7_spades.jpg" title="Seven" style="display:none;"/>									
+										<img id="card8_spades" src="images/cards/8_spades.jpg" title="Eight" style="display:none;"/>									
+										<img id="card9_spades" src="images/cards/9_spades.jpg" title="Nine" style="display:none;"/>									
+										<img id="card10_spades" src="images/cards/10_spades.jpg" title="Ten" style="display:none;"/>									
+										<img id="card11_spades" src="images/cards/11_spades.jpg" title="Jack" style="display:none;"/>									
+										<img id="card12_spades" src="images/cards/12_spades.jpg" title="Queen" style="display:none;"/>									
+										<img id="card13_spades" src="images/cards/13_spades.jpg" title="King" style="display:none;"/>									
+										<img id="card14_spades" src="images/cards/14_spades.jpg" title="Ace" style="display:none;"/>			
+										<img id="card2_diamonds" src="images/cards/2_diamonds.jpg" title="Two" style="display:none;"/>									
+										<img id="card3_diamonds" src="images/cards/3_diamonds.jpg" title="Three" style="display:none;"/>									
+										<img id="card4_diamonds" src="images/cards/4_diamonds.jpg" title="Four" style="display:none;"/>									
+										<img id="card5_diamonds" src="images/cards/5_diamonds.jpg" title="Five" style="display:none;"/>									
+										<img id="card6_diamonds" src="images/cards/6_diamonds.jpg" title="Six" style="display:none;"/>									
+										<img id="card7_diamonds" src="images/cards/7_diamonds.jpg" title="Seven" style="display:none;"/>									
+										<img id="card8_diamonds" src="images/cards/8_diamonds.jpg" title="Eight" style="display:none;"/>									
+										<img id="card9_diamonds" src="images/cards/9_diamonds.jpg" title="Nine" style="display:none;"/>									
+										<img id="card10_diamonds" src="images/cards/10_diamonds.jpg" title="Ten" style="display:none;"/>									
+										<img id="card11_diamonds" src="images/cards/11_diamonds.jpg" title="Jack" style="display:none;"/>									
+										<img id="card12_diamonds" src="images/cards/12_diamonds.jpg" title="Queen" style="display:none;"/>									
+										<img id="card13_diamonds" src="images/cards/13_diamonds.jpg" title="King" style="display:none;"/>									
+										<img id="card14_diamonds" src="images/cards/14_diamonds.jpg" title="Ace" style="display:none;"/>										
+							</div>
+							<div id="gameButtons" data-role="controlgroup" data-type="horizontal">
+								<a id="higher" href="javascript:$.nextTurn(true)" data-role="button" data-icon="arrow-u" data-theme="b">Higher</a>
+								<a id="lower" href="javascript:$.nextTurn(false)" data-role="button" data-icon="arrow-d" data-theme="c">Lower</a>
+							</div>
+						
+					</div>
+					<!--TODO-->
+					<div class="ui-block-b col2">
+							<div data-role="controlgroup">
+								<a class="betButton" style="display:none;" href="javascript:$.addBet(0)" data-role="button" data-theme="c">0</a>
+								<a class="betButton" style="display:none;" href="javascript:$.addBet(1)" data-role="button" data-theme="a">1</a>
+								<a class="betButton" style="display:none;" href="javascript:$.addBet(2)" data-role="button" data-theme="a">2</a>
+								<a class="betButton" style="display:none;" href="javascript:$.addBet(3)" data-role="button" data-theme="a">3</a>
+								<a class="betButton" style="display:none;" href="javascript:$.addBet(4)" data-role="button" data-theme="a">4</a>
+								<span class="betButton" style="display:none;"><b>Bet: </b><span id="currentNumFingers"></span></span>
+							</div>
+						
+					</div>
+				</div>
+			</div>
+
+			<div data-role="footer">
+				<h4>Bet: <span id="totalNumFingers"></span></h4>
+			</div>
+		</div>
+		
+		
+		<div data-role="page" id="scores" class="page" data-theme="b">
+			<div data-role="header" data-theme="a">
+					<div id="navbar" data-role="navbar">
+						<ul>
+							<li><a href="#game" data-transition="none">Game</a></li>
+							<li><a href="#scores" data-transition="none" class="ui-btn-active">Scores</a></li>
+							<li><a href="#drinkers" data-transition="none">Top Drinkers</a></li>
+						</ul>
+					</div>
+			</div>
+
+			<div id="scoreTab" data-role="content">	
+				
+			</div>
+
+			<div data-role="footer">
+				<h4>Current Bet:</h4>
+			</div>
+		</div>
+		
+		<div data-role="page" id="drinkers" class="page" data-theme="b">
+			<div id="navbar" data-role="header" data-theme="a">
+					<div data-role="navbar">
+						<ul>
+							<li><a href="#game" data-transition="none">Game</a></li>
+							<li><a href="#scores" data-transition="none">Scores</a></li>
+							<li><a href="#drinkers" data-transition="none" class="ui-btn-active">Top Drinkers</a></li>
+						</ul>
+					</div>
+			</div>
+
+			<div data-role="content">	
+				
+			</div>
+
+			<div data-role="footer">
+				<h4>Current Bet:</h4>
+			</div>
+		</div>
+		
+		<!-- Dialogue Form -->
+		<div data-role="dialog" id="form">
+			<div data-role="header" data-theme="b">
+				<h1>New Game</h1>
+			</div>
+			
+			<div id="newGameForm" data-role="content">	
+				<h3>Players</h3>
+				<div data-role="controlgroup" data-type="horizontal">
+					<a id="higher" href="javascript:$.addPlayerRow()" data-role="button" data-icon="plus" data-theme="a">Add</a>
+					<a id="lower" href="javascript:$.delPlayerRow()" data-role="button" data-icon="minus" data-theme="c">Remove</a>
+				</div>
+				<div id="playerRows">
+					<div id="player_1">Player 1: <input title="Please enter your name" MAXLENGTH=8></input></div>
+				</div>
+				<a href="javascript:$.startGame()" id="start" data-role="button" data-theme="b">Start Game</a>
+				<a href="#game" id="start" data-role="button" data-theme="c">Cancel</a>
+			</div>
+		</div>
+		
+		<!-- Lee You must drink Form -->
+		<div data-role="dialog" id="drink">
+			<div id="pictureHeader" data-role="header" data-theme="b">
+				<h1>Drink!</h1>
+			</div>
+			<div id="pictureContainer" data-role="content">	
+				<div id="pictureDisplay" class="ui-corner-all"></div>
+				<span id="drinkMessage"></span>
+				<a href="#game" id="return" data-role="button" data-theme="c">Ok</a>
+			</div>
+		</div>
+		
+	</body>
+</html>
