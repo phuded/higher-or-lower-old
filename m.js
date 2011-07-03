@@ -7,6 +7,22 @@ $.prepareGame = function(){
 			$('#navbar a[href="'+window.location.hash+'"]').addClass('ui-btn-active');
 		}    
 	});
+	
+	$('#drink').live('pageshow',function(event){
+			var fingers = $("#numFingers");
+			
+			fingers.animate({
+				fontSize:'3.4em'
+			}, 
+			400,function() {
+				fingers.animate({
+					fontSize:'1.0em'
+				 }, 
+				 400,function() {
+				 });
+			});
+		
+	});
 };
 
 
@@ -40,14 +56,14 @@ $.startGame = function(){
 		
 		//Set players in array
 		$("#playerRows div").each(function(){
-			var playerName = $($(this).children("input")[0]).val();
+			var playerName = $(this).find("input").val();
 			players.push(playerName);
 			playersScores.push(new Array());
 
 		});
 		
 		//Display Player
-		$("#playerName").html("<strong>"+players[currentPlayer] + "</strong> guess higher or lower!");
+		$("#playerName").html("<strong>"+players[currentPlayer] + "</strong> guess Higher or Lower!");
 		
 		//New card
 		currentCard = cards[Math.floor(Math.random()*cards.length)];
@@ -57,25 +73,33 @@ $.startGame = function(){
 		$("#cardDisplay img").hide();
 		
 		//Close Dialogue
-		$('.ui-dialog').dialog('close');
+		$.closeForm();
 		//Display card
-		$.displayCard(currentCard);
+		$.displayCard(currentCard,"");
 	}
 };
 
 //Display the card
-$.displayCard = function(card){
+$.displayCard = function(card,higher){
 	$("#cardDisplay img:visible").hide();
-	$("#cardDisplay img#card"+card).show();
+	$("#cardDisplay img#"+card).show();
+	
+	if(higher!==""){
+		$("#cardDisplay img#"+card).flip({
+			direction:higher?'lr':'rl',
+			speed: 250,
+			color:"white"
+		});
+	}
 		
-	var cardNum = parseInt(card.split("_")[0]);
+	var cardNum = parseInt(card.substring(1));
 	
 	//Check if can display betting buttons
 	if((cardNum>5 & cardNum<11) || $("#fullBetting").attr('checked')){
-		$(".betButton").show();
+		$("#sliderBar").show();
 	}
 	else{
-		$(".betButton").hide();
+		$("#sliderBar").hide();
 	}
 	
 	//Remove card if remove cards is enabled
@@ -90,21 +114,23 @@ $.displayCard = function(card){
 
 
 $.nextTurn = function(higher){
-	//Add just made bet to total bet
-	currentBet += parseInt($("#currentNumFingers").text());
+	if(players.length>0){
+		//Add just made bet to total bet
+		currentBet += parseInt($("#currentNumFingers").val());
 
-	//Reset bet counter
-	$("#currentNumFingers").text(0);
-	
-	//Get new card 
-	var nextCard = cards[Math.floor(Math.random()*cards.length)];
-	//Display card
-	$.displayCard(nextCard);
-	//Display results, and update scores and set next player
-	$.displayTurnResults(higher,nextCard);
-	
-	//Finally make the current card the next one
-	currentCard=nextCard;
+		//Reset bet counter
+		$("#currentNumFingers").val(0).slider("refresh");
+		
+		//Get new card 
+		var nextCard = cards[Math.floor(Math.random()*cards.length)];
+		//Display card
+		$.displayCard(nextCard,$.compareCards(nextCard,currentCard));
+		//Display results, and update scores and set next player
+		$.displayTurnResults(higher,nextCard);
+		
+		//Finally make the current card the next one
+		currentCard=nextCard;
+	}
 };
 
 
@@ -124,15 +150,17 @@ $.displayTurnResults = function(higher, nextCard){
 		$("#cardDisplay").css("background-color","green");
 	}
 	else{
+		$("#higher,#lower").attr("disabled",true);
 		$("#cardDisplay").css("background-color","red");
 		//Show Lee
 		if(currentBet > 0){
-			$("#drink div#pictureContainer span#drinkMessage").html("<b>"+oldPlayerName + "</b> you must drink...<br/><b>"+(currentBet>1?currentBet + " fingers!":currentBet + " finger!")+"</b>");
+			$("#drink div#pictureContainer span#drinkMessage").html("<b>"+oldPlayerName + "</b> you must drink...<br/><span id='numFingers'>"+(currentBet>1?currentBet + " fingers!":currentBet + " finger!")+"</span>");
 		}
 		else{
 			$("#drink div#pictureContainer span#drinkMessage").html("<b>"+oldPlayerName + "</b> you must drink...<br/>&nbsp;");
 		}
-		$.mobile.changePage( "#drink", { transition: "pop"} );
+		//Load dialogue
+		setTimeout('$.mobile.changePage( "#drink", { transition: "pop",changeHash: false} )', 600);	
 		currentBet =0;
 	}
 	$("#totalNumFingers").text(currentBet + " fingers");
@@ -159,7 +187,7 @@ $.addPlayerRow = function(){
 	var numPlayers = $("#playerRows div").size();
 	if(numPlayers < 6){
 		//var gamePlayers = $("#player_1 select").html();
-		var newPlayerRow = "<div id='player_"+(numPlayers +1)+"'>Player "+(numPlayers +1)+": <input title='Please enter your name' MAXLENGTH=8></input></div>";
+		var newPlayerRow = "<div id='player_"+(numPlayers+1)+"'><input type='text' value='Player "+(numPlayers+1)+"' MAXLENGTH=8/></div>";
 		$(newPlayerRow).appendTo("#playerRows").page();
 	}
 };
@@ -180,16 +208,16 @@ $.resetPack = function(){
 	if($("#wholePack").attr('checked')){
 		cards = new Array();
 		for(var i =2;i<15;i++){
-			cards.push(i+"_hearts");
-			cards.push(i+"_diamonds");
-			cards.push(i+"_clubs");
-			cards.push(i+"_spades");
+			cards.push("h"+i);
+			cards.push("d"+i);
+			cards.push("c"+i);
+			cards.push("s"+i);
 		}
 	}
 	else{
 		cards = new Array();
 		for(var i =2;i<15;i++){
-			cards.push(i+"_hearts");
+			cards.push("h"+i);
 
 		}
 	}
@@ -197,7 +225,41 @@ $.resetPack = function(){
 
 $.compareCards = function(next,current){
 	//Returns true if card 1 >= card 2
-	return (parseInt(next.split("_")[0]) >= parseInt(current.split("_")[0]));
+	return (parseInt(next.substring(1)) >= parseInt(current.substring(1)));
+};
+
+//Custom function for closing menu
+$.openForm = function(){
+	$.mobile.changePage( "#form", {
+		transition: "fade",
+		changeHash: false
+	});
+	
+	$(".gameFlag").each(function(){
+		if($(this).attr("checked")){
+			$(this).next().addClass("ui-btn-active");
+		}
+	});
+};
+
+//Custom function for closing menu
+$.closeForm = function(){
+	$.mobile.changePage( "#game", {
+		transition: "fade",
+		reverse:true,
+		changeHash: false
+	});
+	document.title = 'HigherOrLower';	
+};
+
+//Custom function for closing Lee dialogue
+$.closeDialog = function(){
+	$.mobile.changePage( "#game", {
+		transition: "pop",
+		reverse:true,
+		changeHash: false
+	});
+	document.title = 'HigherOrLower';
 };
 
 Array.prototype.remove = function(from, to) {

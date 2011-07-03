@@ -1,24 +1,29 @@
 .main{
-	margin-bottom:-12px;
+	margin-top: -20px;
+	margin-bottom:-10px;
 }
 
-.main p{
+.main p:first-child{
+	border:1px inset white;
+	background-color:lightGray;
+	padding:4px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+
+}
+
+.main  *{
 	text-align:center;
 }
-
-.col1{
-	width:230px !important;
-}
-
-.col2{
-	width:60px !important;
-	text-align:center;
-	position:relative;
-	bottom: 10px;
+/*Hide dialogue close button*/
+.header a{
+	display:none !important;
 }
 
 #cardDisplay{
-	margin: 0 0 0 32px;
+	margin-left:auto;
+	margin-right:auto;
 	width:147px;
 	height:194px;
 	border:2px inset white;
@@ -29,14 +34,43 @@
 }
 
 #cardDisplay img{
-	width:135px;
+	width:123px;
 	height:180px;
-	margin: 7px 0 0 6px;
+	margin-top: 7px;
+	background-color:white;
 }
 
 /* Betting buttons */
 span.betButton{	
 	font-size:0.9em;
+}
+
+/*Slider*/
+#sliderPanel{
+	height:40px;
+	margin-bottom:10px;
+}
+
+#sliderBar{
+	font-weight:bold;
+}
+
+#sliderBar div{
+	width:65%;
+}
+
+#currentNumFingers{
+	width:25px;
+}
+
+/*Bottom bar*/
+#footer{
+	height:47px;
+}
+
+#newGame{
+	margin-left:10px;
+	margin-right:30px;
 }
 
 /*Lee pop up */
@@ -45,17 +79,34 @@ div#pictureContainer{
 	text-align:center;
 }
 
+div#pictureContainer >div{
+	height:80px;
+}
+
 #pictureDisplay{
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom:5px;
-	width:214px;
-	height:214px;
-	background:url(../images/drink.jpg);
+	width:174px;
+	height:174px;
 	border:1px solid #7AB9F0;
 }
 
 span#drinkMessage{
 	font-size:1.1em;
 	color:red;
+}
+
+#fingers{
+	font-weight:bold;
+}
+
+/* Form*/
+
+#gameOptions label{
+	font-size:0.7em;
+}
+
+#gameOptions label > span{
+	padding:0.6em 10px;
 }
