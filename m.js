@@ -150,7 +150,6 @@ $.displayTurnResults = function(higher, nextCard){
 		$("#cardDisplay").css("background-color","green");
 	}
 	else{
-		$("#higher,#lower").attr("disabled",true);
 		$("#cardDisplay").css("background-color","red");
 		//Show Lee
 		if(currentBet > 0){
