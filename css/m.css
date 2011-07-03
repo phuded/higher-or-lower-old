@@ -60,7 +60,8 @@ span.betButton{
 }
 
 #currentNumFingers{
-	width:25px;
+	width:20px;
+	text-align: left;
 }
 
 /*Bottom bar*/

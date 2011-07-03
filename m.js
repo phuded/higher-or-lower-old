@@ -14,7 +14,7 @@ $.prepareGame = function(){
 			fingers.animate({
 				fontSize:'3.4em'
 			}, 
-			300,function() {
+			400,function() {
 				fingers.animate({
 					fontSize:'1.0em'
 				 }, 
