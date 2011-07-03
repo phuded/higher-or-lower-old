@@ -14,11 +14,11 @@ $.prepareGame = function(){
 			fingers.animate({
 				fontSize:'3.4em'
 			}, 
-			400,function() {
+			300,function() {
 				fingers.animate({
 					fontSize:'1.0em'
 				 }, 
-				 400,function() {
+				 300,function() {
 				 });
 			});
 		
