@@ -130,3 +130,7 @@ a#addPlayer,a#removePlayer {
 #gameOptions label > span{
 	padding:0.6em 10px;
 }
+
+#playerList li{
+	font-size:0.8em;
+}
