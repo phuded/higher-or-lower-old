@@ -104,6 +104,25 @@ span#drinkMessage{
 
 /* Form*/
 
+a#addPlayer,a#removePlayer {
+	font-size:0.7em;
+}
+
+#playerRows{
+	width: 100%;
+	padding-bottom: 5px;
+}
+
+#gameOptions {
+	margin-bottom:0px;
+	padding-bottom: 8px;
+}
+
+#playerRows, #gameOptions {
+	border-bottom:1px solid lightGray;
+	border-radius: 0;
+}
+
 #gameOptions label{
 	font-size:0.7em;
 }

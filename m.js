@@ -55,7 +55,7 @@ $.startGame = function(){
 		$("#currentNumFingers").text(0);
 		
 		//Set players in array
-		$("#playerRows div").each(function(){
+		$("#playerRows tr").each(function(){
 			var playerName = $(this).find("input").val();
 			players.push(playerName);
 			playersScores.push(new Array());
@@ -162,7 +162,7 @@ $.displayTurnResults = function(higher, nextCard){
 		setTimeout('$.mobile.changePage( "#drink", { transition: "pop",changeHash: false} )', 600);	
 		currentBet =0;
 	}
-	$("#totalNumFingers").text(currentBet + " fingers");
+	$("#totalNumFingers").text(currentBet + ((currentBet>1 || currentBet==0)?" fingers":" finger"));
 	
 	//Set the next plater
 	$.setNextPlayer();
@@ -183,16 +183,20 @@ $.setNextPlayer = function(){
 
 
 $.addPlayerRow = function(){
-	var numPlayers = $("#playerRows div").size();
+	var numPlayers = $("#playerRows tr").size();
+	var nextPlayer = numPlayers+1;
 	if(numPlayers < 6){
 		//var gamePlayers = $("#player_1 select").html();
-		var newPlayerRow = "<div id='player_"+(numPlayers+1)+"'><input type='text' value='Player "+(numPlayers+1)+"' MAXLENGTH=8/></div>";
+		var newPlayerRow = "<tr id='player_"+nextPlayer+"'><td><input type='text' value='Player "+nextPlayer+"' MAXLENGTH=8/></td>";
+		newPlayerRow += "<td><a id='search_"+nextPlayer+"' href='javascript:$.showPlayerList(true, "+nextPlayer+")' data-role='button' data-icon='search' data-iconpos='notext'>Choose</a></td>";
+		newPlayerRow += "</tr>";
+		
 		$(newPlayerRow).appendTo("#playerRows").page();
 	}
 };
 		
 $.delPlayerRow = function(){	
-	var lastNum = $("#playerRows div").size();
+	var lastNum = $("#playerRows tr").size();
 	if(lastNum>1){
 		$("#playerRows #player_"+lastNum).remove();
 	}
@@ -229,14 +233,33 @@ $.compareCards = function(next,current){
 
 //Custom function for closing menu
 $.openForm = function(){
-	$.mobile.changePage( "#form", {
-		transition: "fade",
-		changeHash: false
-	});
-	
-	$(".gameFlag").each(function(){
-		if($(this).attr("checked")){
-			$(this).next().addClass("ui-btn-active");
+
+	//Get Player List
+	$.ajax({
+		type: "POST",
+		url: "listPlayers",
+		dataType: "json",
+		success: function(json){							
+			var options = ''; 
+			for (var i = 0; i < json.length; i++) {
+				options += "<li><a href='javascript:$.showPlayerList(false,&#39;"+json[i]+"&#39;)'>"+json[i]+"</a></li>";
+			}
+			$("div#playerList ul").append(options);
+				
+			//Show Form
+			$.mobile.changePage( "#form", {
+				transition: "fade",
+				changeHash: false
+			});
+			
+			$(".gameFlag").each(function(){
+				if($(this).attr("checked")){
+					$(this).next().addClass("ui-btn-active");
+				}
+			});
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+					// Error!
 		}
 	});
 };
@@ -259,6 +282,27 @@ $.closeDialog = function(){
 		changeHash: false
 	});
 	document.title = 'HigherOrLower';
+};
+
+//Custom function for closing menu
+$.showPlayerList = function(show, player){
+	var formContent = $(".gameForm");
+	var playerList = $("#playerList");
+	
+	if(show){
+		formContent.fadeOut(function() {
+			playerList.fadeIn();
+		 });		
+
+		playerList.data("playerNum",player);
+	}
+	else{	
+		playerList.fadeOut(function() {
+			formContent.fadeIn();
+			var num = playerList.data("playerNum");
+			$("tr#player_"+num+" input").val(player);
+		 });
+	}
 };
 
 Array.prototype.remove = function(from, to) {

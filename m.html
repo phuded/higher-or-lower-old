@@ -115,7 +115,7 @@
 		</div>
 		
 		
-		<div data-role="page" id="scores" class="page" data-theme="b">
+		<!--<div data-role="page" id="scores" class="page" data-theme="b">
 			<div data-role="header" data-theme="a">
 					<div id="navbar" data-role="navbar">
 						<ul>
@@ -153,7 +153,7 @@
 			<div data-role="footer">
 				<h4>Current Bet:</h4>
 			</div>
-		</div>
+		</div>-->
 		
 		<!-- Dialogue Form -->
 		<div data-role="dialog" id="form">
@@ -162,11 +162,27 @@
 			</div>
 			
 			<div id="newGameForm" data-role="content">	
-				<div data-role="controlgroup" data-type="horizontal">
-					<a id="higher" href="javascript:$.addPlayerRow()" data-role="button" data-icon="plus" data-theme="a">Add</a>
-					<a id="lower" href="javascript:$.delPlayerRow()" data-role="button" data-icon="minus" data-theme="c">Remove</a>
+				<div data-role="controlgroup" data-type="horizontal" class="gameForm">
+					<a id="addPlayer" href="javascript:$.addPlayerRow()" data-role="button" data-icon="plus" data-theme="a">Add Player</a>
+					<a id="removePlayer" href="javascript:$.delPlayerRow()" data-role="button" data-icon="minus" data-theme="c">Remove Player</a>
 				</div>
-				<fieldset id="gameOptions" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain">
+
+				<table id="playerRows" class="gameForm">
+					<tr id="player_1">
+						<td>
+							<input type="text" value="Player 1" MAXLENGTH=8"/>
+						</td>
+						<td>
+							<a id="search_1" href="javascript:$.showPlayerList(true, 1)" data-role="button" data-icon="search" data-theme="c" data-iconpos="notext">Choose</a>
+						</td>
+					</tr>
+				</table>
+				
+				<div id="playerList" style="display:none;">
+					<ul data-role="listview" data-filter="true" data-inset="true"></ul>
+				</div>
+				
+				<fieldset id="gameOptions" data-role="controlgroup" data-type="horizontal" data-role="fieldcontain" class="gameForm">
 					<input type="checkbox" name="fullBetting" id="fullBetting" class="gameFlag"/>
 					<label for="fullBetting">Bet any card</label>
 					<input type="checkbox" name="removeCards" id="removeCards" class="gameFlag" />
@@ -174,14 +190,9 @@
 					<input type="checkbox" name="wholePack" id="wholePack" class="gameFlag" />
 					<label for="wholePack">All Cards</label>
 				</fieldset>
-				<!--<div id="playerRows">-->
-				<div id="playerRows">
-					<div id="player_1">
-						<input type="text" value="Player 1" MAXLENGTH=8/>
-					</div>
-				</div>
-				<a href="javascript:$.startGame()" id="start" data-role="button" data-theme="b" data-inline="true">Play</a>
-				<a href="javascript:$.closeForm()" id="start" data-role="button" data-theme="c" data-inline="true">Cancel</a>
+				
+				<a href="javascript:$.startGame()" id="start" data-role="button" data-theme="b" data-inline="true" class="gameForm">Play</a>
+				<a href="javascript:$.closeForm()" id="start" data-role="button" data-theme="c" data-inline="true" class="gameForm">Cancel</a>
 			</div>
 		</div>
 		
