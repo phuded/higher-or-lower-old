@@ -1,13 +1,6 @@
 
 $.prepareGame = function(){
-	//Fix for navbar
-	$('.page').live('pageshow',function (e){    
-		if (window.location.hash != ''){    
-			$('#navbar a').removeClass('ui-btn-active');
-			$('#navbar a[href="'+window.location.hash+'"]').addClass('ui-btn-active');
-		}    
-	});
-	
+
 	$('#drink').live('pageshow',function(event){
 			var fingers = $("#numFingers");
 			
@@ -54,14 +47,24 @@ $.startGame = function(){
 		//Reset bet counter
 		$("#currentNumFingers").text(0);
 		
+		//Reset scoretab
+		$("#scoreTab").html("");
+		//Create scoretab var
+		var scoreTab = "<table class='scoreTable'>";
+		
 		//Set players in array
 		$("#playerRows tr").each(function(){
 			var playerName = $(this).find("input").val();
 			players.push(playerName);
 			playersScores.push(new Array());
-
+			//Add in header row
+			scoreTab += "<tr><th>"+playerName+"</th></tr>";
 		});
-		
+		scoreTab += "</table>"
+	
+		//Append table to div
+		$("#scoreTab").append(scoreTab);
+	
 		//Display Player
 		$("#playerName").html("<strong>"+players[currentPlayer] + "</strong> guess Higher or Lower!");
 		
@@ -159,10 +162,13 @@ $.displayTurnResults = function(higher, nextCard){
 			$("#drink div#pictureContainer span#drinkMessage").html("<b>"+oldPlayerName + "</b> you must drink...<br/>&nbsp;");
 		}
 		//Load dialogue
-		setTimeout('$.mobile.changePage( "#drink", { transition: "pop",changeHash: false} )', 600);	
+		setTimeout('$.openDialog()', 600);	
 		currentBet =0;
 	}
 	$("#totalNumFingers").text(currentBet + ((currentBet>1 || currentBet==0)?" fingers":" finger"));
+	
+	//Update the score
+	$.updateScore(correct, currentPlayer);
 	
 	//Set the next plater
 	$.setNextPlayer();
@@ -202,10 +208,6 @@ $.delPlayerRow = function(){
 	}
 };
 
-$.addBet = function(fingers){
-	$("#currentNumFingers").text(fingers);
-}
-
 //Reset the pack
 $.resetPack = function(){
 	if($("#wholePack").attr('checked')){
@@ -231,77 +233,31 @@ $.compareCards = function(next,current){
 	return (parseInt(next.substring(1)) >= parseInt(current.substring(1)));
 };
 
-//Custom function for closing menu
-$.openForm = function(){
-
-	//Get Player List
-	$.ajax({
-		type: "POST",
-		url: "listPlayers",
-		dataType: "json",
-		success: function(json){							
-			var options = ''; 
-			for (var i = 0; i < json.length; i++) {
-				options += "<li><a href='javascript:$.showPlayerList(false,&#39;"+json[i]+"&#39;)'>"+json[i]+"</a></li>";
-			}
-			$("div#playerList ul").append(options);
-				
-			//Show Form
-			$.mobile.changePage( "#form", {
-				transition: "fade",
-				changeHash: false
-			});
-			
-			$(".gameFlag").each(function(){
-				if($(this).attr("checked")){
-					$(this).next().addClass("ui-btn-active");
-				}
-			});
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-					// Error!
-		}
-	});
-};
-
-//Custom function for closing menu
-$.closeForm = function(){
-	$.mobile.changePage( "#game", {
-		transition: "fade",
-		reverse:true,
-		changeHash: false
-	});
-	document.title = 'HigherOrLower';	
-};
-
-//Custom function for closing Lee dialogue
-$.closeDialog = function(){
-	$.mobile.changePage( "#game", {
-		transition: "pop",
-		reverse:true,
-		changeHash: false
-	});
-	document.title = 'HigherOrLower';
-};
-
-//Custom function for closing menu
-$.showPlayerList = function(show, player){
-	var formContent = $(".gameForm");
-	var playerList = $("#playerList");
+//Update the score for a player
+$.updateScore = function(correct, oldPlayer){
+	//Add score to array and score tab
+	playersScores[oldPlayer].push(correct);
 	
-	if(show){
-		formContent.fadeOut(function() {
-			playerList.fadeIn();
-		 });		
+	//Get the row object for the old player
+	var playerScoreRow = $("#scoreTab table tr:eq("+oldPlayer+")");
 
-		playerList.data("playerNum",player);
+	$.addScoreCol(playerScoreRow,correct,oldPlayer);
+};
+
+//Add a new column to the score tab
+$.addScoreCol = function(playerScoreRow,correct, playerId){
+	//If table is full - delete first row before adding latest
+	
+	var numCols = 6;
+	
+	if(playerScoreRow.children("td").size() == numCols){
+		playerScoreRow.find("td:eq(0)").remove();
 	}
-	else{	
-		playerList.fadeOut(function() {
-			formContent.fadeIn();
-			var num = playerList.data("playerNum");
-			$("tr#player_"+num+" input").val(player);
-		 });
+	if(correct){
+		playerScoreRow.append("<td class='correct'>" + playersScores[playerId].length)
+	}
+	else{
+		playerScoreRow.append("<td class='incorrect'>" + playersScores[playerId].length)
 	}
 };
 

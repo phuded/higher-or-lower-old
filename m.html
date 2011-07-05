@@ -15,11 +15,13 @@
 		<title>HigherOrLower</title>
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css"/>
 		<link rel="stylesheet" type="text/css" href="css/m.css" />
+		
 		<script src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
 		<script type="text/javascript" src="../jquery/jquery.flip.min.js"></script>
 
 		<script type="text/javascript" src="m.js"></script>   
+		<script type="text/javascript" src="m_trans.js"></script>   
 		
 		<script type="text/javascript">                                         		
 			$(document).ready(function() {
@@ -30,12 +32,12 @@
 	<body>
 		<div data-role="page" id="game" class="page" data-theme="b">
 		
-			<div data-role="header">
-					<div id="navbar" data-role="navbar">
+			<div data-role="header" data-theme="a">
+					<div id="game_navbar" data-role="navbar">
 						<ul>
-							<li><a href="#game" data-transition="none" class="ui-btn-active">Game</a></li>
-							<!--<li><a href="#scores" data-transition="none">Scores</a></li>
-							<li><a href="#drinkers" data-transition="none">Top Drinkers</a></li>-->
+							<li><a href="#game" class="ui-btn-active" data-icon="star">Game</a></li>
+							<li><a href="javascript:$.slideTab(false,'scores')" data-icon="grid">Scores</a></li>
+							<!--<li><a href="#drinkers" data-transition="none">Top Drinkers</a></li>-->
 						</ul>
 					</div>
 			</div>
@@ -115,27 +117,22 @@
 		</div>
 		
 		
-		<!--<div data-role="page" id="scores" class="page" data-theme="b">
+		<div data-role="page" id="scores" class="page" data-theme="b">
 			<div data-role="header" data-theme="a">
-					<div id="navbar" data-role="navbar">
+					<div id="scores_navbar" data-role="navbar">
 						<ul>
-							<li><a href="#game" data-transition="none">Game</a></li>
-							<li><a href="#scores" data-transition="none" class="ui-btn-active">Scores</a></li>
-							<li><a href="#drinkers" data-transition="none">Top Drinkers</a></li>
+							<li><a href="javascript:$.slideTab(true,'game')" data-icon="star">Game</a></li>
+							<li><a href="#scores" class="ui-btn-active" data-icon="grid">Scores</a></li>
+							<!--<li><a href="#drinkers" data-transition="none">Top Drinkers</a></li>-->
 						</ul>
 					</div>
 			</div>
 
 			<div id="scoreTab" data-role="content">	
-				
-			</div>
-
-			<div data-role="footer">
-				<h4>Current Bet:</h4>
 			</div>
 		</div>
 		
-		<div data-role="page" id="drinkers" class="page" data-theme="b">
+		<!--<div data-role="page" id="drinkers" class="page" data-theme="b">
 			<div id="navbar" data-role="header" data-theme="a">
 					<div data-role="navbar">
 						<ul>

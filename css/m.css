@@ -1,6 +1,7 @@
 .main{
+	/*To fit app screen perfectly*/
 	margin-top: -20px;
-	margin-bottom:-10px;
+	margin-bottom:-20px;
 }
 
 .main p:first-child{
@@ -10,7 +11,8 @@
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
 	border-radius: 8px;
-
+	/*To fit app screen perfectly*/
+	margin-bottom:12px;
 }
 
 .main  *{
@@ -133,4 +135,41 @@ a#addPlayer,a#removePlayer {
 
 #playerList li{
 	font-size:0.8em;
+}
+
+/*Scores tab */
+
+table.scoreTable{
+	border:1px solid #6D7B8D;
+	border-bottom-left-radius: 0.6em;
+    border-top-left-radius: 0.6em;
+	font-weight: bold;
+    text-shadow: none;
+	padding:5px;
+}
+
+table.scoreTable tr th, table.scoreTable tr td{
+	padding:4px;
+}
+
+table.scoreTable tr th{
+	width:80px;
+	max-width: 80px;
+	text-shadow: 0 1px 0 grey;
+	text-align: left;
+}
+
+table.scoreTable tr td{
+	width:22px;
+	max-width:22px;
+	text-align:center;
+	border: 1px solid grey;
+}
+
+table.scoreTable tr td.correct{
+	background-color:#66CC99;
+}
+
+table.scoreTable tr td.incorrect{
+	background-color:#F78181;
 }
