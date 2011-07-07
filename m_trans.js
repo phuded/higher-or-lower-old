@@ -1,6 +1,7 @@
 //Custom function for closing menu
 $.openForm = function(){
-
+	//Clear all players
+	$("div#playerList ul").html("");
 	//Get Player List
 	$.ajax({
 		type: "POST",
@@ -12,7 +13,7 @@ $.openForm = function(){
 				options += "<li><a href='javascript:$.showPlayerList(false,&#39;"+json[i]+"&#39;)'>"+json[i]+"</a></li>";
 			}
 			$("div#playerList ul").append(options);
-				
+			
 			//Show Form
 			$.mobile.changePage( "#form", {
 				transition: "fade",

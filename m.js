@@ -16,6 +16,13 @@ $.prepareGame = function(){
 			});
 		
 	});
+	
+	$('#form').live('pageshow',function(event){
+		//Create list
+		$('#playerList ul').listview('refresh');	
+		
+	});
+	
 };
 
 
