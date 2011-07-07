@@ -2,6 +2,8 @@
 $.openForm = function(){
 	//Clear all players
 	$("div#playerList ul").html("");
+	//Clear Search
+	$("div#playerList input").val("");
 	//Get Player List
 	$.ajax({
 		type: "POST",
