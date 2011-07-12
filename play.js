@@ -214,7 +214,7 @@ $.generateDrinkersTab = function(id,orderBy,dir){
 			type: "POST",
 			url: "listScores",
 			dataType:"json",
-			data:"orderBy="+orderBy+"&dir="+sDir,
+			data:"orderBy="+orderBy+"&dir="+sDir+"&num=10",
 			success: function(json){
 				//Remove again
 				table.find("tr:gt(0)").remove();

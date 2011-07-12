@@ -23,6 +23,17 @@ $.prepareGame = function(){
 		
 	});
 	
+	//When the drinkers tab is selected
+	$('#drinkers').live('pageshow',function(event){
+		$("#drinkersTab table").removeData("sort");
+		$.generateDrinkersTab(2,"max_finger","desc");
+	});
+	
+	//Show loading on drinkers tab
+	$('#game, #scores').live('pageshow',function(event){
+		$.showLoading(true);
+	});
+	
 };
 
 
@@ -154,6 +165,40 @@ $.displayTurnResults = function(higher, nextCard){
 	if( (higher & $.compareCards(nextCard,currentCard)) || (!higher & $.compareCards(currentCard,nextCard)) ){
 		correct=true;
 	}
+	
+	//Check fro winning streak
+	var winningRun = 0;
+	
+	if(correct){
+		//Add 1 for turn just won
+		winningRun = 1;
+		//Determine any winning streak
+		for(var i = playersScores[currentPlayer].length; i--; i>=0){
+			var prevTurn = playersScores[currentPlayer][i];
+			if(prevTurn){
+				winningRun++;
+			}
+			else{
+				break;
+			}
+		}
+	}
+	
+	//Update DB if not a test player
+	if(oldPlayerName.indexOf("Player ") == -1){
+		$.ajax({
+			type: "POST",
+			url: "editPlayer",
+			data: "name="+oldPlayerName+"&maxFingers="+(correct?0:currentBet)+"&maxCorrect="+winningRun,
+			success: function(msg){							
+				//Updated!
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				// Error!
+			}
+		});
+	}
+	
 	
 	//Show or hide Lee
 	if(correct){

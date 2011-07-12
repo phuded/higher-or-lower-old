@@ -173,3 +173,67 @@ table.scoreTable tr td.correct{
 table.scoreTable tr td.incorrect{
 	background-color:#F78181;
 }
+
+
+/*Drinkers tab */
+
+#drinkersTab{
+	padding: 2px;
+}
+
+#drinkersTab table{
+	text-align: center;
+	text-shadow:none;
+	font-size: 0.8em;
+}
+
+#drinkersTab table  tr th, #drinkersTab table tr td{
+	padding:3px 3px 4px 2px;
+	border: 1px solid gray;
+	background-color: #F4F4F4;
+}
+
+/*Header row*/
+#drinkersTab table tr th{
+	background-color:lightGray;
+	width: 70px;
+}
+
+/*First header*/
+#drinkersTab table tr th:first-child{
+	border-top-left-radius: 0.6em;
+	width: 20px;
+}
+
+/*First column*/
+#drinkersTab table tr td:first-child{
+	background-color:lightGray;
+}
+
+/*Last on first column*/
+#drinkersTab table tr:last-child  td:first-child{
+	border-bottom-left-radius: 0.6em;
+}
+
+/*Header column buttons*/
+.drinkers_header {
+	margin: 0.5em 0.2em;
+}
+
+.drinkers_header > span {
+	padding: 0.6em 8px 0.6em 27px !important;
+	white-space: normal;
+}
+
+.drinkers_header span.ui-icon {
+	left: 4px;
+}
+
+/*Spinner*/
+.spinner{
+	text-align:center;
+}
+.spinner img{
+	height: 64px;
+	width: 64px;
+}
