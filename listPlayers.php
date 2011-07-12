@@ -5,7 +5,7 @@ if (!$link) {
 }
 mysql_select_db("higherorlower", $link);
 
-$result = mysql_query("SELECT * FROM player");
+$result = mysql_query("SELECT * FROM player order by name asc");
 
 $arrayRes = array();
 
