@@ -1,5 +1,7 @@
 //Custom function for closing menu
 $.openForm = function(){
+	//Show loading
+	$.showLoadingGame(true);
 	//Clear all players
 	$("div#playerList ul").html("");
 	//Clear Search
@@ -9,7 +11,7 @@ $.openForm = function(){
 		type: "POST",
 		url: "listPlayers",
 		dataType: "json",
-		success: function(json){							
+		success: function(json){			
 			var options = ''; 
 			for (var i = 0; i < json.length; i++) {
 				options += "<li><a href='javascript:$.showPlayerList(false,&#39;"+json[i]+"&#39;)'>"+json[i]+"</a></li>";
@@ -29,7 +31,8 @@ $.openForm = function(){
 			});
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
-					// Error!
+			//Hide loading
+			$.showLoadingGame(false);
 		}
 	});
 };
@@ -41,7 +44,20 @@ $.closeForm = function(){
 		reverse:true,
 		changeHash: false
 	});
-	document.title = 'HigherOrLower';	
+	document.title = 'Higher-Lower';	
+};
+
+
+//Show loading on game tab
+$.showLoadingGame = function(show){
+	if(show){
+		$(".spinnerSmall").show();
+		$("#newGame").hide();
+	}
+	else{
+		$(".spinnerSmall").hide();
+		$("#newGame").show();
+	}
 };
 
 
@@ -60,7 +76,7 @@ $.closeDialog = function(){
 		reverse:true,
 		changeHash: false
 	});
-	document.title = 'HigherOrLower';
+	document.title = 'Higher-Lower';
 };
 
 //Custom function for closing menu
@@ -103,11 +119,9 @@ $.slideTab = function(rev,tab){
 $.generateDrinkersTab = function(id,orderBy,dir){
 	//Clear table
 	var table = $("#drinkersTab table");
-	table.find("tr:gt(0)").remove();
-	$.showLoading(true);
-	
+	//When clicking on headers - need to show loading again
+	$.showLoading(true);	
 	//Get state
-	
 	var sDir = table.data("sort");
 	
 	//If a column has ever been stored
@@ -170,11 +184,11 @@ $.generateDrinkersTab = function(id,orderBy,dir){
 //Show loading on drinkers tab
 $.showLoading = function(show){
 	if(show){
-		$("#drinkersTab table").hide();
+		var table = $("#drinkersTab table");
+		table.find("tr:gt(0)").remove();
 		$(".spinner").show();
 	}
 	else{
 		$(".spinner").hide();
-		$("#drinkersTab table").show();
 	}
 };

@@ -2,16 +2,17 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 		<link rel="apple-touch-icon" href="images/iphone-iconS.png" />
 		<link rel="apple-touch-icon" sizes="72x72" href="images/iphone-iconM.png" />
 		<link rel="apple-touch-icon" sizes="114x114" href="images/iphone-iconL.png" />
 		<link rel="apple-touch-startup-image" href="images/startup.png">
-		<!--http://developer.apple.com/library/safari/#documentation/appleapplications/reference/safariwebcontent/configuringwebapplications/configuringwebapplications.html-->
+		<!--http://stackoverflow.com/questions/5767565/jquery-mobile-viewport-hide-safari-header-and-footer
+		http://developer.apple.com/library/safari/#documentation/appleapplications/reference/safariwebcontent/configuringwebapplications/configuringwebapplications.html-->
 
-		<title>HigherOrLower</title>
+		<title>Higher-Lower</title>
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css"/>
 		<link rel="stylesheet" type="text/css" href="css/m.css" />
 		
@@ -44,7 +45,7 @@
 					<p><span id="playerName">&nbsp;</span></p>
 					<div id="sliderPanel">
 						<div id="sliderBar" style="display:none;">
-							Bet: <input type="range" name="slider" id="currentNumFingers" value="0" min="0" max="4" data-theme="c"/>
+							Bet: <input type="range" name="slider" id="currentNumFingers" value="0" min="0" max="4" data-theme="c" readonly/>
 						</div>
 					</div>			
 					<div id="cardDisplay">
@@ -109,8 +110,17 @@
 
 			<div id="footer" data-role="footer">
 				<div data-role="controlgroup" data-type="horizontal">
-					<a href="javascript:$.openForm()" data-role="button" data-transition="fade" data-icon="plus" data-theme="a" id="newGame">New Game</a>
-					<span>Bet:&nbsp;<span id="totalNumFingers"></span></span>
+					<table>
+						<tr>
+							<th>
+								<a href="javascript:$.openForm()" data-role="button" data-transition="fade" data-icon="plus" data-theme="a" id="newGame">New Game</a>
+								<img class="spinnerSmall" src="images/loading.gif" style="display:none;"/>
+							</th>
+							<td>
+								<span>Bet:&nbsp;<span id="totalNumFingers"></span></span>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -143,7 +153,7 @@
 			</div>
 
 			<div id="drinkersTab" data-role="content">
-				<table style="display:none;">
+				<table>
 					<tr>
 						<th></th>
 						<th><a href="javascript:$.generateDrinkersTab(1,'name','asc')" data-role="button" data-icon="info" data-theme="c" class="drinkers_header">Name</a></th>

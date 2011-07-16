@@ -29,9 +29,14 @@ $.prepareGame = function(){
 		$.generateDrinkersTab(2,"max_finger","desc");
 	});
 	
-	//Show loading on drinkers tab
+	//Show loading on drinkers tab close
 	$('#game, #scores').live('pageshow',function(event){
 		$.showLoading(true);
+	});
+	
+	$('#form').live('pageshow',function(event){
+		//Hide little loading pic when form loads
+		$.showLoadingGame(false);
 	});
 	
 };
