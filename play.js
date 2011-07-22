@@ -56,60 +56,21 @@ $.displayTurnResults = function(higher, nextCard){
 
 	var correct = false;
 	var oldPlayerName = players[currentPlayer];
+	
 	//Depending on whether user pressed higher or lower - compare current card to next and display results
-	if(higher){
-		if($.compareCards(nextCard,currentCard)){
-			$("#infoBar").html("<span class='correctGuess'>Correct!</span>");
-			correct=true;
-		}
-		else{
-			$("#infoBar").html("<span class='incorrectGuess'><strong>"+oldPlayerName + "</strong>, YOU MUST DRINK<span id='fingers'>" +	(currentBet>0?(currentBet>1?"<BR/>"+currentBet + " fingers":"<BR/>"+currentBet + " finger"):"") +"!</span></span>");
-		}
-	}
-	else{
-		if($.compareCards(currentCard,nextCard)){
-			$("#infoBar").html("<span class='correctGuess'>Correct!</span>");		
-			correct=true;		
-		}
-		else{
-			$("#infoBar").html("<span class='incorrectGuess'><strong>"+oldPlayerName + "</strong>, YOU MUST DRINK<span id='fingers'>" +	(currentBet>0?(currentBet>1?"<BR/>"+currentBet + " fingers":"<BR/>"+currentBet + " finger"):"") +"!</span></span>");
-		}	
-	}
-	
-	
-	var winningRun = 0;
-	
-	if(correct){
-		//Add 1 for turn just won
-		winningRun = 1;
-		//Determine any winning streak
-		for(var i = playersScores[currentPlayer].length; i--; i>=0){
-			var prevTurn = playersScores[currentPlayer][i];
-			if(prevTurn){
-				winningRun++;
-			}
-			else{
-				break;
-			}
-		}
+	//Determine is correct guess
+	if( (higher & $.compareCards(nextCard,currentCard)) || (!higher & $.compareCards(currentCard,nextCard)) ){
+		correct=true;
 	}
 	
 	//Update DB
-	$.ajax({
-		type: "POST",
-		url: "editPlayer",
-		data: "name="+oldPlayerName+"&maxFingers="+(correct?0:currentBet)+"&maxCorrect="+winningRun,
-		success: function(msg){							
-			//Updated!
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			// Error!
-		}
-	});
-	
+	$.updateDBScores(correct,oldPlayerName);
 	
 	//Show or hide Lee
 	if(correct){
+		//Display correct
+		$("#infoBar").html("<span class='correctGuess'>Correct!</span>");
+		//Hide Lee
 		$("#pictureDisplay").hide();
 		$("#totalNumFingers").text(currentBet + " fingers");
 		//Y position of glass
@@ -118,9 +79,11 @@ $.displayTurnResults = function(higher, nextCard){
 		$(".innerGamePanel").animate({backgroundPosition:'0px ' + offset+'px'},900);
 	}
 	else{
+		//Display incorrect
+		$("#infoBar").html("<span class='incorrectGuess'><strong>"+oldPlayerName + "</strong>, YOU MUST DRINK<span id='fingers'>" +	(currentBet>0?(currentBet>1?"<BR/>"+currentBet + " fingers":"<BR/>"+currentBet + " finger"):"") +"!</span></span>");
 		//Show Lee
 		$("#pictureDisplay").show();
-			
+		//Animate number of fingers	
 		if(currentBet>0){
 			$("#infoBar span #fingers").addClass("fingers",400,function () {
 				$("#infoBar span span").removeClass("fingers",400);
@@ -143,6 +106,57 @@ $.displayTurnResults = function(higher, nextCard){
 	$("#playerBar").html("<strong>"+players[currentPlayer] + "</strong> guess Higher or Lower!");
 	
 	return correct;
+};
+
+
+//Determine if correct, update picture and text
+$.updateDBScores = function(correct, oldPlayerName){
+		
+	var winningRun = 0;
+	var fingersDrank = correct?0:currentBet;
+	
+	if(correct){
+		//Add 1 for turn just won
+		winningRun = 1;
+		//Determine any winning streak
+		for(var i = playersScores[currentPlayer].length; i--; i>=0){
+			var prevTurn = playersScores[currentPlayer][i];
+			if(prevTurn){
+				winningRun++;
+			}
+			else{
+				break;
+			}
+		}
+		
+		//Alert user
+		if(winningRun%5 == 0){
+			$.sticky('<b>'+oldPlayerName+'</b><p>You are on a streak of <b>' + winningRun + '</b> correct guesses!</p>');
+		}
+	}
+	
+	//Update DB
+	$.ajax({
+		type: "POST",
+		url: "editPlayer",
+		data: "name="+oldPlayerName+"&maxFingers="+fingersDrank+"&maxCorrect="+winningRun,
+		dataType: "json",
+		success: function(json){
+			if(json.result == 'Player Added'){
+				$.sticky('<b>'+oldPlayerName+'</b><p>You have been added to the player list!</p>');
+			}
+			else if (json.result == 'Updated Max Fingers'){
+				$.sticky('<b>'+oldPlayerName+'</b><p>You have beaten your max drinking score after consuming <b>' + fingersDrank + ' fingers</b>!</p>');
+			}
+			else if (json.result == 'Updated Max Correct'){
+				$.sticky('<b>'+oldPlayerName+'</b><p>Well done! Your longest streak of correct guesses is now <b>'+winningRun+'</b>.</p>');
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			// Error!
+		}
+	});
+	
 };
 
 
@@ -214,7 +228,7 @@ $.generateDrinkersTab = function(id,orderBy,dir){
 			type: "POST",
 			url: "listScores",
 			dataType:"json",
-			data:"orderBy="+orderBy+"&dir="+sDir+"&num=10",
+			data:"orderBy="+orderBy+"&dir="+sDir+"&num=12",
 			success: function(json){
 				//Remove again
 				table.find("tr:gt(0)").remove();

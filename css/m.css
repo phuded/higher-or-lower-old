@@ -58,7 +58,7 @@ span.betButton{
 }
 
 #sliderBar div{
-	width:65%;
+	width:60%;
 }
 
 #sliderBar div a{
@@ -81,8 +81,22 @@ span.betButton{
 	border-spacing: 0;
 }
 
-#footer th, #footer td{
-	width:125px;
+#footer th{
+	width:115px;
+}
+
+#footer td{
+	width:80px;
+	font-size:0.9em;
+	border-left: 1px dotted #456F9A;
+}
+
+#footer td.wider{
+	width:115px;
+}
+
+#footer td span{
+	margin-left:5px;
 }
 
 .spinnerSmall{

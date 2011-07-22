@@ -176,9 +176,13 @@ $.startGame = function(){
 	//Reset player
 	currentPlayer = 0;
 	
-	//Reset bet
+	//Reset Total bet
 	currentBet=0;
 	$("#totalNumFingers").text(currentBet + " fingers");
+	
+	//Reset Slider
+	$("#bettingSlider").slider({value:0});
+	$("#currentNumFingers").text(0);
 	
 	players = new Array();
 	playersScores = new Array();

@@ -61,15 +61,16 @@ $.startGame = function(){
 		
 		//Reset bet
 		currentBet=0;
+		//Reset bet counter
 		$("#totalNumFingers").text(currentBet + " fingers");
+		//Reset bet slider
+		$("#currentNumFingers").val(0).slider("refresh");
 		
 		players = new Array();
 		playersScores = new Array();
 		//Restore all cards based on toggle
 		$.resetPack();
-		//Reset bet counter
-		$("#currentNumFingers").text(0);
-		
+
 		//Reset scoretab
 		$("#scoreTab").html("");
 		//Create scoretab var
@@ -136,6 +137,7 @@ $.displayCard = function(card,higher){
 			$.resetPack();
 		}
 	}
+	$("#cardsLeft").html((((cards.length==13 & !$("#wholePack").attr('checked')) || cards.length==52)?"<u>"+cards.length+"</u>":cards.length) + " " +(cards.length>1?"cards":"card"));
 };
 
 
@@ -195,6 +197,7 @@ $.displayTurnResults = function(higher, nextCard){
 			type: "POST",
 			url: "editPlayer",
 			data: "name="+oldPlayerName+"&maxFingers="+(correct?0:currentBet)+"&maxCorrect="+winningRun,
+			dataType: "json",
 			success: function(msg){							
 				//Updated!
 			},

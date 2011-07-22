@@ -1,12 +1,7 @@
 <?php
-$link = mysql_connect('higherorlower.db.7613256.hostedresource.com', 'higherorlower', 'Phuded32');
-if (!$link) {
-    die('Could not connect: ' . mysql_error());
-}
-mysql_select_db("higherorlower", $link);
+include 'config.php';
 
 $result = mysql_query("SELECT * FROM player order by name asc");
-
 $arrayRes = array();
 
 while($row = mysql_fetch_array($result)){
