@@ -4,6 +4,10 @@
 	margin-bottom:-20px;
 }
 
+.tab-content{
+	background:transparent;
+}
+
 .main p:first-child{
 	border:1px inset white;
 	background-color:lightGray;

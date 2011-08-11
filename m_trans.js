@@ -1,7 +1,9 @@
 //Custom function for closing menu
-$.openForm = function(){
-	//Show loading
-	$.showLoadingGame(true);
+$.openForm = function(initial){
+	if(!initial){
+		//Show loading
+		$.showLoadingGame(true);
+	}
 	//Clear all players
 	$("div#playerList ul").html("");
 	//Clear Search

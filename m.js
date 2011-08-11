@@ -39,6 +39,10 @@ $.prepareGame = function(){
 		$.showLoadingGame(false);
 	});
 	
+	//Open form on first load
+	$('#game').live('pagecreate',function(event){
+		$.openForm(true);
+	});
 };
 
 
