@@ -1,4 +1,4 @@
-# Offline cache v1
+CACHE MANIFEST
 # html files
 m.html
  
@@ -8,7 +8,7 @@ css/m.css
 # js files
 m.js
 m_trans.js
- 
+
 # images
 images/loading.gif
 images/drink.jpg
