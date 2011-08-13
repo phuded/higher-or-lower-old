@@ -1,6 +1,26 @@
 
 $.prepareGame = function(){
 
+	//Get Player List
+	$.ajax({
+		type: "POST",
+		url: "listPlayers",
+		dataType: "json",
+		success: function(json){			
+			var options = ''; 
+			for (var i = 0; i < json.length; i++) {
+				options += "<li><a href='javascript:$.showPlayerList(false,&#39;"+json[i]+"&#39;)'>"+json[i]+"</a></li>";
+			}
+			$("div#playerList ul").append(options);
+			
+			//Refresh View
+			$('#playerList ul').listview('refresh');	
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			//Error
+		}
+	});
+
 	$('#drink').live('pageshow',function(event){
 			var fingers = $("#numFingers");
 			
@@ -17,12 +37,6 @@ $.prepareGame = function(){
 		
 	});
 	
-	$('#form').live('pageshow',function(event){
-		//Create list
-		$('#playerList ul').listview('refresh');	
-		
-	});
-	
 	//When the drinkers tab is selected
 	$('#drinkers').live('pageshow',function(event){
 		$("#drinkersTab table").removeData("sort");
@@ -34,15 +48,6 @@ $.prepareGame = function(){
 		$.showLoading(true);
 	});
 	
-	$('#form').live('pageshow',function(event){
-		//Hide little loading pic when form loads
-		$.showLoadingGame(false);
-	});
-	
-	//Open form on first load
-	$('#game').live('pagecreate',function(event){
-		$.openForm(true);
-	});
 };
 
 
@@ -67,8 +72,6 @@ $.startGame = function(){
 		currentBet=0;
 		//Reset bet counter
 		$("#totalNumFingers").text(currentBet + " fingers");
-		//Reset bet slider
-		$("#currentNumFingers").val(0).slider("refresh");
 		
 		players = new Array();
 		playersScores = new Array();
@@ -107,19 +110,56 @@ $.startGame = function(){
 		$.closeForm();
 		//Display card
 		$.displayCard(currentCard,"");
+
+		//Reset bet slider
+		$("#currentNumFingers").val(0).slider("refresh");
+	}
+};
+
+$.nextTurn = function(higherGuess){
+	if(players.length>0){
+		//Remove colour from background
+		$("#cardDisplay").css("background-color","");
+		//Add just made bet to total bet
+		currentBet += parseInt($("#currentNumFingers").val());
+
+		//Reset bet counter
+		$("#currentNumFingers").val(0).slider("refresh");
+		
+		//Get new card 
+		var nextCard = cards[Math.floor(Math.random()*cards.length)];
+		var correctGuess = (higherGuess & $.compareCards(nextCard,currentCard)) || (!higherGuess & $.compareCards(currentCard,nextCard)); 
+		
+		//Display card
+		$.displayCard(nextCard,$.compareCards(nextCard,currentCard),correctGuess);
+		//Display results, and update scores and set next player
+		$.displayTurnResults(nextCard,correctGuess);
+		
+		//Finally make the current card the next one
+		currentCard=nextCard;
 	}
 };
 
 //Display the card
-$.displayCard = function(card,higher){
+$.displayCard = function(card,nextCardHigher,correctGuess){
 	$("#cardDisplay img:visible").hide();
 	$("#cardDisplay img#"+card).show();
 	
-	if(higher!==""){
+	if(nextCardHigher!==""){
 		$("#cardDisplay img#"+card).flip({
-			direction:higher?'lr':'rl',
+			direction:nextCardHigher?'lr':'rl',
 			speed: 250,
-			color:"white"
+			color:"white",
+			onEnd: function(){
+				if(correctGuess){
+					//Green background
+					$("#cardDisplay").css("background-color","green");
+				}
+				else{
+					//Red background
+					$("#cardDisplay").css("background-color","red");
+				}
+			}
 		});
 	}
 		
@@ -144,43 +184,15 @@ $.displayCard = function(card,higher){
 	$("#cardsLeft").html((((cards.length==13 & !$("#wholePack").attr('checked')) || cards.length==52)?"<u>"+cards.length+"</u>":cards.length) + " " +(cards.length>1?"cards":"card"));
 };
 
-
-$.nextTurn = function(higher){
-	if(players.length>0){
-		//Add just made bet to total bet
-		currentBet += parseInt($("#currentNumFingers").val());
-
-		//Reset bet counter
-		$("#currentNumFingers").val(0).slider("refresh");
-		
-		//Get new card 
-		var nextCard = cards[Math.floor(Math.random()*cards.length)];
-		//Display card
-		$.displayCard(nextCard,$.compareCards(nextCard,currentCard));
-		//Display results, and update scores and set next player
-		$.displayTurnResults(higher,nextCard);
-		
-		//Finally make the current card the next one
-		currentCard=nextCard;
-	}
-};
-
-
 //Determine if correct, update picture and text
-$.displayTurnResults = function(higher, nextCard){
+$.displayTurnResults = function(nextCard,correctGuess){
 
-	var correct = false;
 	var oldPlayerName = players[currentPlayer];
-	
-	//Depending on whether user pressed higher or lower - compare current card to next and display results
-	if( (higher & $.compareCards(nextCard,currentCard)) || (!higher & $.compareCards(currentCard,nextCard)) ){
-		correct=true;
-	}
 	
 	//Check fro winning streak
 	var winningRun = 0;
 	
-	if(correct){
+	if(correctGuess){
 		//Add 1 for turn just won
 		winningRun = 1;
 		//Determine any winning streak
@@ -200,7 +212,7 @@ $.displayTurnResults = function(higher, nextCard){
 		$.ajax({
 			type: "POST",
 			url: "editPlayer",
-			data: "name="+oldPlayerName+"&maxFingers="+(correct?0:currentBet)+"&maxCorrect="+winningRun,
+			data: "name="+oldPlayerName+"&maxFingers="+(correctGuess?0:currentBet)+"&maxCorrect="+winningRun,
 			dataType: "json",
 			success: function(msg){							
 				//Updated!
@@ -212,12 +224,8 @@ $.displayTurnResults = function(higher, nextCard){
 	}
 	
 	
-	//Show or hide Lee
-	if(correct){
-		$("#cardDisplay").css("background-color","green");
-	}
-	else{
-		$("#cardDisplay").css("background-color","red");
+	//Show Lee if wrong
+	if(!correctGuess){
 		//Show Lee
 		if(currentBet > 0){
 			$("#drink div#pictureContainer span#drinkMessage").html("<b>"+oldPlayerName + "</b> you must drink...<br/><span id='numFingers'>"+(currentBet>1?currentBet + " fingers!":currentBet + " finger!")+"</span>");
@@ -225,18 +233,19 @@ $.displayTurnResults = function(higher, nextCard){
 		else{
 			$("#drink div#pictureContainer span#drinkMessage").html("<b>"+oldPlayerName + "</b> you must drink...<br/>&nbsp;");
 		}
-		//Load dialogue
-		setTimeout('$.openDialog()', 600);	
+		//Reset bet since all fingers drank!
 		currentBet =0;
+		//Show Lee
+		setTimeout('$.openDialog()', 700);
 	}
+	
+	//Update fingers
 	$("#totalNumFingers").text(currentBet + ((currentBet>1 || currentBet==0)?" fingers":" finger"));
+	//Update the score on score tab
+	$.updateScore(correctGuess, currentPlayer);
 	
-	//Update the score
-	$.updateScore(correct, currentPlayer);
-	
-	//Set the next plater
+	//Set the next player and change text
 	$.setNextPlayer();
-	
 	$("#playerName").html("<strong>"+players[currentPlayer] + "</strong> guess Higher or Lower!");
 };
 
@@ -255,13 +264,13 @@ $.setNextPlayer = function(){
 $.addPlayerRow = function(){
 	var numPlayers = $("#playerRows tr").size();
 	var nextPlayer = numPlayers+1;
+	
 	if(numPlayers < 6){
-		//var gamePlayers = $("#player_1 select").html();
 		var newPlayerRow = "<tr id='player_"+nextPlayer+"'><td><input type='text' value='Player "+nextPlayer+"' MAXLENGTH=8/></td>";
 		newPlayerRow += "<td><a id='search_"+nextPlayer+"' href='javascript:$.showPlayerList(true, "+nextPlayer+")' data-role='button' data-icon='search' data-iconpos='notext'>Choose</a></td>";
 		newPlayerRow += "</tr>";
-		
-		$(newPlayerRow).appendTo("#playerRows").page();
+		//Apply styling
+		$(newPlayerRow).appendTo("#playerRows").trigger("create");
 	}
 };
 		

@@ -1,42 +1,15 @@
 //Custom function for closing menu
-$.openForm = function(initial){
-	if(!initial){
-		//Show loading
-		$.showLoadingGame(true);
-	}
-	//Clear all players
-	$("div#playerList ul").html("");
+$.openForm = function(){
 	//Clear Search
 	$("div#playerList input").val("");
-	//Get Player List
-	$.ajax({
-		type: "POST",
-		url: "listPlayers",
-		dataType: "json",
-		success: function(json){			
-			var options = ''; 
-			for (var i = 0; i < json.length; i++) {
-				options += "<li><a href='javascript:$.showPlayerList(false,&#39;"+json[i]+"&#39;)'>"+json[i]+"</a></li>";
-			}
-			$("div#playerList ul").append(options);
-			
-			//Show Form
-			$.mobile.changePage( "#form", {
-				transition: "fade",
-				changeHash: false
-			});
-			
-			$(".gameFlag").each(function(){
-				if($(this).attr("checked")){
-					$(this).next().addClass("ui-btn-active");
-				}
-			});
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			//Hide loading
-			$.showLoadingGame(false);
-		}
+	$('#playerList ul li').removeClass('ui-screen-hidden'); 
+	
+	//Show Form
+	$.mobile.changePage( "#form", {
+		transition: "fade",
+		changeHash: false
 	});
+
 };
 
 //Custom function for closing menu
@@ -46,20 +19,6 @@ $.closeForm = function(){
 		reverse:true,
 		changeHash: false
 	});
-	document.title = 'Higher-Lower';	
-};
-
-
-//Show loading on game tab
-$.showLoadingGame = function(show){
-	if(show){
-		$(".spinnerSmall").show();
-		$("#newGame").hide();
-	}
-	else{
-		$(".spinnerSmall").hide();
-		$("#newGame").show();
-	}
 };
 
 
@@ -78,10 +37,10 @@ $.closeDialog = function(){
 		reverse:true,
 		changeHash: false
 	});
-	document.title = 'Higher-Lower';
 };
 
-//Custom function for closing menu
+//Show form panels - list 
+
 $.showPlayerList = function(show, player){
 	var formContent = $(".gameForm");
 	var playerList = $("#playerList");
@@ -101,7 +60,6 @@ $.showPlayerList = function(show, player){
 		 });
 	}
 };
-
 
 //Slide
 $.slideTab = function(rev,tab){

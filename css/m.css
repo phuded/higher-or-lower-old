@@ -137,36 +137,46 @@ span#drinkMessage{
 }
 
 /* Form*/
-
-a#addPlayer,a#removePlayer {
-	font-size:0.7em;
+a#addPlayer,a#removePlayer{
+	font-size:0.8em;
 }
-
+/*Player Rows*/
 #playerRows{
 	width: 100%;
 	padding-bottom: 5px;
 }
 
-#gameOptions {
+/* Toggle buttons */
+#gameOptions, #playerButtons{
+	text-align: center;
+}
+
+#gameOptions{
 	margin-bottom:0px;
 	padding-bottom: 8px;
 }
 
-#playerRows, #gameOptions {
-	border-bottom:1px solid lightGray;
-	border-radius: 0;
-}
-
 #gameOptions label{
-	font-size:0.7em;
+	font-size:0.8em;
 }
 
 #gameOptions label > span{
-	padding:0.6em 10px;
+	padding:0.6em 9px;
 }
 
+/*Add line beneath*/
+#playerRows, #gameOptions {
+	border-bottom:1px solid lightGray;
+}
+
+/*Start & Cancel buttons*/
+#start,#cancel{
+	padding: 1px 8px 4px 8px;
+}
+
+/*Player List*/
 #playerList li{
-	font-size:0.8em;
+	font-size:0.9em;
 }
 
 /*Scores tab */
