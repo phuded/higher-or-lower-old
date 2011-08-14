@@ -46,8 +46,7 @@ $.prepareGame = function(){
 	//Show loading on drinkers tab close
 	$('#game, #scores').live('pageshow',function(event){
 		$.showLoading(true);
-	});
-	
+	});	
 };
 
 
@@ -266,19 +265,45 @@ $.addPlayerRow = function(){
 	var nextPlayer = numPlayers+1;
 	
 	if(numPlayers < 6){
-		var newPlayerRow = "<tr id='player_"+nextPlayer+"'><td><input type='text' value='Player "+nextPlayer+"' MAXLENGTH=8/></td>";
-		newPlayerRow += "<td><a id='search_"+nextPlayer+"' href='javascript:$.showPlayerList(true, "+nextPlayer+")' data-role='button' data-icon='search' data-iconpos='notext'>Choose</a></td>";
-		newPlayerRow += "</tr>";
+		var newPlayerRow = $.createRow(nextPlayer,"Player "+nextPlayer);
 		//Apply styling
 		$(newPlayerRow).appendTo("#playerRows").trigger("create");
 	}
 };
 		
-$.delPlayerRow = function(){	
+$.delPlayerRow = function(rowNum){	
 	var lastNum = $("#playerRows tr").size();
+	//If there is more than one player
 	if(lastNum>1){
-		$("#playerRows #player_"+lastNum).remove();
+		if(rowNum){
+			$("#playerRows #player_"+rowNum).remove();
+			//Loop through all other players
+			for (var i = rowNum+1;i<=lastNum;i++){
+				var row = $("#playerRows #player_"+i);
+				var name = row.find('input').val();
+
+				if(name == "Player "+i){
+					name = "Player "+(i-1);
+				}
+				row.remove();
+
+				$($.createRow(i-1,name)).appendTo("#playerRows").trigger("create");
+			}
+		}
+		else{
+			$("#playerRows #player_"+lastNum).remove();
+		}
 	}
+};
+
+$.createRow = function (playerNumber,name){
+	var newPlayerRow = "<tr id='player_"+playerNumber+"'><td><input type='text' value='"+name+"' MAXLENGTH=8/></td>";
+		
+	newPlayerRow += "<td><a id='del_"+playerNumber+"' href='javascript:$.delPlayerRow("+playerNumber+")' data-role='button' data-icon='delete' data-iconpos='notext'>Delete</a></td><td><a id='search_"+playerNumber+"' href='javascript:$.showPlayerList(true, "+playerNumber+")' data-role='button' data-icon='search' data-iconpos='notext'>Choose</a></td>";
+	
+	newPlayerRow += "</tr>"
+
+	return newPlayerRow;
 };
 
 //Reset the pack

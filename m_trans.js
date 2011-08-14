@@ -47,7 +47,7 @@ $.showPlayerList = function(show, player){
 	
 	if(show){
 		formContent.fadeOut(function() {
-			playerList.fadeIn();
+			playerList.fadeIn('fast');
 		 });		
 
 		playerList.data("playerNum",player);
