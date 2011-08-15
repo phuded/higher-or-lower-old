@@ -269,6 +269,12 @@ $.addPlayerRow = function(){
 		//Apply styling
 		$(newPlayerRow).appendTo("#playerRows").trigger("create");
 	}
+	
+	numPlayers = $("#playerRows tr").size();
+	
+	if(numPlayers > 1){
+		$("#playerRows tr:eq(0) td:eq(1) a").show();
+	}
 };
 		
 $.delPlayerRow = function(rowNum){	
@@ -294,12 +300,17 @@ $.delPlayerRow = function(rowNum){
 			$("#playerRows #player_"+lastNum).remove();
 		}
 	}
+	
+	lastNum = $("#playerRows tr").size();
+	if(lastNum == 1){
+		$("#playerRows tr:eq(0) td:eq(1) a").hide();
+	}
 };
 
 $.createRow = function (playerNumber,name){
 	var newPlayerRow = "<tr id='player_"+playerNumber+"'><td><input type='text' value='"+name+"' MAXLENGTH=8/></td>";
 		
-	newPlayerRow += "<td><a id='del_"+playerNumber+"' href='javascript:$.delPlayerRow("+playerNumber+")' data-role='button' data-icon='delete' data-iconpos='notext'>Delete</a></td><td><a id='search_"+playerNumber+"' href='javascript:$.showPlayerList(true, "+playerNumber+")' data-role='button' data-icon='search' data-iconpos='notext'>Choose</a></td>";
+	newPlayerRow += "<td class='icon'><a id='del_"+playerNumber+"' href='javascript:$.delPlayerRow("+playerNumber+")' data-role='button' data-icon='delete' data-iconpos='notext'>Delete</a></td><td class='icon'><a id='search_"+playerNumber+"' href='javascript:$.showPlayerList(true, "+playerNumber+")' data-role='button' data-icon='search' data-iconpos='notext'>Choose</a></td>";
 	
 	newPlayerRow += "</tr>"
 
