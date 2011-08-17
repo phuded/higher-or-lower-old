@@ -228,12 +228,12 @@ $.generateDrinkersTab = function(id,orderBy,dir){
 			type: "POST",
 			url: "listScores",
 			dataType:"json",
-			data:"orderBy="+orderBy+"&dir="+sDir+"&num=12",
+			data:"orderBy="+orderBy+"&dir="+sDir+"&num=12&start=0",
 			success: function(json){
 				//Remove again
 				table.find("tr:gt(0)").remove();
 				//Populate
-				$.each(json, function(index,value){
+				$.each(json[1], function(index,value){
 					var lastPlayed = value.lastPlayed;
 					if(!lastPlayed){
 						lastPlayed = "";

@@ -23,17 +23,8 @@ $.prepareGame = function(){
 
 	$('#drink').live('pageshow',function(event){
 			var fingers = $("#numFingers");
-			
-			fingers.animate({
-				fontSize:'3.0em'
-			}, 
-			400,function() {
-				fingers.animate({
-					fontSize:'1.0em'
-				 }, 
-				 300,function() {
-				 });
-			});
+			fingers.animate({fontSize:'3.0em'}, 400);
+			fingers.animate({fontSize:'1.0em'}, 300);
 		
 	});
 	
@@ -376,12 +367,15 @@ Array.prototype.remove = function(from, to) {
   return this.push.apply(this, rest);
 };
 
+//Game variables
 var players = new Array();
 var playersScores = new Array();
 
 var currentCard;
 var currentPlayer = 0;
-
 var currentBet = 0; 
 
 var cards = new Array();
+
+//Number of drinkers displayed in table
+var maxDrinkerRows = 10;

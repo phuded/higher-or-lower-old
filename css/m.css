@@ -137,14 +137,14 @@ span#drinkMessage{
 }
 
 /* Form*/
-
 .formPanel{
-	margin: 0 0 5px 0;
+	margin-top:-6px;
+
 }
 
-.formPanel >div{
+.formPanel >div>div{
 	margin: 0 0 1px 0;
-	padding: 8px 0 1px 3px;
+	padding: 4px 0 4px 2px;
 }
 
 /*Add/remove buttons*/
@@ -266,17 +266,32 @@ table.scoreTable tr td.incorrect{
 	border-bottom-left-radius: 0.6em;
 }
 
-/*Header column buttons*/
-.drinkers_header {
+/*Header and footer column buttons*/
+.drinkers_header{
 	margin: 0.5em 0.2em;
 }
 
-.drinkers_header > span {
+.navButtons{
+	width:300px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.navButtons>a{
+	float:right;
+	font-size: 0.8em;
+}
+
+.navButtons>a:first-child{
+	float:left;
+}
+
+.drinkers_header > span,.navButtons>a > span  {
 	padding: 0.6em 8px 0.6em 27px !important;
 	white-space: normal;
 }
 
-.drinkers_header span.ui-icon {
+.drinkers_header span.ui-icon,.navButtons>a span.ui-icon {
 	left: 4px;
 }
 
