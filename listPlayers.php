@@ -2,10 +2,9 @@
 include 'config.php';
 
 $result = mysql_query("SELECT * FROM player order by name asc");
-$arrayRes = array();
 
 while($row = mysql_fetch_array($result)){
-	array_push($arrayRes, $row['name']);
+  $arrayRes[] = array('name'=>$row['name'],'fname'=>$row['fname'],'surname'=>$row['surname']);
 }
 
 echo json_encode($arrayRes);

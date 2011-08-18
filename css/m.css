@@ -185,6 +185,16 @@ a#addPlayer,a#delPlayer{
 	font-size:0.9em;
 }
 
+/*Player Form*/
+#playerForm>span{
+	font-size:1.2em;
+	font-weight:bold;
+}
+
+#playerForm p{
+	color:red;
+}
+
 /*Scores tab */
 
 table.scoreTable{

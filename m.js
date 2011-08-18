@@ -1,26 +1,9 @@
 
 $.prepareGame = function(){
-
-	//Get Player List
-	$.ajax({
-		type: "POST",
-		url: "listPlayers",
-		dataType: "json",
-		success: function(json){			
-			var options = ''; 
-			for (var i = 0; i < json.length; i++) {
-				options += "<li><a href='javascript:$.showPlayerList(false,&#39;"+json[i]+"&#39;)'>"+json[i]+"</a></li>";
-			}
-			$("div#playerList ul").append(options);
-			
-			//Refresh View
-			$('#playerList ul').listview('refresh');	
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			//Error
-		}
-	});
-
+	
+	//Get player list
+	$.getPlayerList();
+	
 	$('#drink').live('pageshow',function(event){
 			var fingers = $("#numFingers");
 			fingers.animate({fontSize:'3.0em'}, 400);
@@ -40,6 +23,30 @@ $.prepareGame = function(){
 	});	
 };
 
+$.getPlayerList = function(){
+	$("div#playerList ul").html("");
+	//Get Player List
+	$.ajax({
+		type: "POST",
+		url: "listPlayers",
+		dataType: "json",
+		success: function(json){			
+			var options = ''; 
+			for (var i = 0; i < json.length; i++) {
+				var name =json[i].name;
+				var wName = json[i].fname?" ("+json[i].fname.substring(0,1)+"."+json[i].surname+")":"";				
+				options += "<li><a href='javascript:$.showPlayerList(false,&#39;"+name+"&#39;)'>"+name+wName+"</a></li>";
+			}
+			$("div#playerList ul").append(options);
+			
+			//Refresh View
+			$('#playerList ul').listview('refresh');	
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			//Error
+		}
+	});
+};
 
 $.startGame = function(){
 	
@@ -264,7 +271,7 @@ $.addPlayerRow = function(){
 	numPlayers = $("#playerRows tr").size();
 	
 	if(numPlayers > 1){
-		$("#playerRows tr:eq(0) td:eq(1) a").show();
+		$("#playerRows tr:eq(0) td:eq(3) a").show();
 	}
 };
 		
@@ -294,14 +301,14 @@ $.delPlayerRow = function(rowNum){
 	
 	lastNum = $("#playerRows tr").size();
 	if(lastNum == 1){
-		$("#playerRows tr:eq(0) td:eq(1) a").hide();
+		$("#playerRows tr:eq(0) td:eq(3) a").hide();
 	}
 };
 
 $.createRow = function (playerNumber,name){
 	var newPlayerRow = "<tr id='player_"+playerNumber+"'><td><input type='text' value='"+name+"' MAXLENGTH=8/></td>";
 		
-	newPlayerRow += "<td class='icon'><a id='del_"+playerNumber+"' href='javascript:$.delPlayerRow("+playerNumber+")' data-role='button' data-icon='delete' data-iconpos='notext'>Delete</a></td><td class='icon'><a id='search_"+playerNumber+"' href='javascript:$.showPlayerList(true, "+playerNumber+")' data-role='button' data-icon='search' data-iconpos='notext'>Choose</a></td>";
+	newPlayerRow += "<td class='icon'><a id='add_"+playerNumber+"' href='javascript:$.createNewPlayer(true,"+playerNumber+")' data-role='button' data-icon='plus' data-iconpos='notext'>Create</a></td><td class='icon'><a id='search_"+playerNumber+"' href='javascript:$.showPlayerList(true, "+playerNumber+")' data-role='button' data-icon='search' data-iconpos='notext'>Choose</a></td><td class='icon'><a id='del_"+playerNumber+"' href='javascript:$.delPlayerRow("+playerNumber+")' data-role='button' data-icon='delete' data-iconpos='notext'>Delete</a></td>";
 	
 	newPlayerRow += "</tr>"
 

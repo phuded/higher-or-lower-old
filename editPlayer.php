@@ -29,10 +29,6 @@ if(mysql_num_rows($playerQuery)){
    }
 
 }
-else{
-	$sql="INSERT INTO player (name, max_correct, max_finger, last_played) VALUES ('$_POST[name]',$_POST[maxCorrect],$_POST[maxFingers],UTC_TIMESTAMP());";
-	$result = "Player Added";
-}
 
 
 if(!empty($sql)){

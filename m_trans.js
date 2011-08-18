@@ -22,25 +22,7 @@ $.closeForm = function(){
 };
 
 
-//Custom function for opening Lee dialogue
-$.openDialog = function(){
-	$.mobile.changePage( "#drink", {
-		transition: "pop",
-		changeHash: false
-	});
-};
-
-//Custom function for closing Lee dialogue
-$.closeDialog = function(){
-	$.mobile.changePage( "#game", {
-		transition: "pop",
-		reverse:true,
-		changeHash: false
-	});
-};
-
 //Show form panels - list 
-
 $.showPlayerList = function(show, player){
 	var formContent = $(".gameForm");
 	var playerList = $("#playerList");
@@ -60,6 +42,101 @@ $.showPlayerList = function(show, player){
 		 });
 	}
 };
+
+//Show form panels - create new player
+
+$.createNewPlayer = function(show, player){
+	var formContent = $(".gameForm");
+	var playerForm = $("#playerForm");
+	
+	if(show){
+		formContent.fadeOut(function() {
+			playerForm.fadeIn('fast');
+		 });		
+
+		playerForm.data("playerNum",player);
+	}
+	else{
+		//Clear warning
+		playerForm.find("p").hide();
+		
+		//Call method to create player and display main form if 2nd argument true
+		if(player){
+			//Get username
+			var playerName = $("#pname").val();
+			
+			if((playerName.length>0) && (playerName.indexOf("Player ") == -1)){
+				var fName = $("#fname").val();
+				var surName = $("#surname").val();
+				
+				//Add new player
+				$.ajax({
+					type: "POST",
+					url: "createPlayer",
+					data: "name="+playerName+"&fname="+fName+"&surName="+surName,
+					dataType: "json",
+					success: function(json){
+						if(json.success){
+							//Added!
+							//Refresh player list
+							$.getPlayerList();
+							//Show previous screen
+							playerForm.fadeOut(function() {
+								formContent.fadeIn('fast');
+								var num = playerForm.data("playerNum");
+								$("tr#player_"+num+" input").val(playerName);
+								$.clearNewPlayerForm();
+							});
+						}
+						else{
+							//Already in use - clear name and show warning
+							$("#pname").val("");
+							playerForm.find("p").show();
+						}
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						// Error!
+					}
+				});
+			}
+			else{
+				//Invalid in use - clear name and show warning
+				$("#pname").val("");
+				playerForm.find("p").show();
+			}
+		}
+		else{
+			//Cancel and show main form
+			playerForm.fadeOut(function() {
+				formContent.fadeIn('fast');
+				//Clear form
+				$.clearNewPlayerForm();
+			});
+		}
+	}
+};
+
+$.clearNewPlayerForm = function(){
+	$(".playerFormField").val("");
+};
+
+//Custom function for opening Lee dialogue
+$.openDialog = function(){
+	$.mobile.changePage( "#drink", {
+		transition: "pop",
+		changeHash: false
+	});
+};
+
+//Custom function for closing Lee dialogue
+$.closeDialog = function(){
+	$.mobile.changePage( "#game", {
+		transition: "pop",
+		reverse:true,
+		changeHash: false
+	});
+};
+
 
 //Slide
 $.slideTab = function(rev,tab){
