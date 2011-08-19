@@ -222,6 +222,7 @@ table.scoreTable tr td{
 	max-width:22px;
 	text-align:center;
 	border: 1px solid grey;
+	font-size: 0.9em;
 }
 
 table.scoreTable tr td.correct{
