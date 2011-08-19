@@ -2,7 +2,7 @@
 $.openForm = function(){
 	//Clear Search
 	$("div#playerList input").val("");
-	$('#playerList ul li').removeClass('ui-screen-hidden'); 
+	$('div#playerList ul li').removeClass('ui-screen-hidden'); 
 	
 	//Show Form
 	$.mobile.changePage( "#form", {

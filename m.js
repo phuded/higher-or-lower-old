@@ -67,8 +67,14 @@ $.startGame = function(){
 		
 		//Reset bet
 		currentBet=0;
+		//Set drink type
+		$("input.drinkOption").each(function(){
+			if($(this).attr("checked")){
+				drinkType = $(this).val()
+			}
+		});
 		//Reset bet counter
-		$("#totalNumFingers").text(currentBet + " fingers");
+		$("#totalNumFingers").text(currentBet + " " + drinkType + "s");
 		
 		players = new Array();
 		playersScores = new Array();
@@ -77,6 +83,7 @@ $.startGame = function(){
 
 		//Reset scoretab
 		$("#scoreTab").html("");
+		
 		//Create scoretab var
 		var scoreTab = "<table class='scoreTable'>";
 		
@@ -225,7 +232,7 @@ $.displayTurnResults = function(nextCard,correctGuess){
 	if(!correctGuess){
 		//Show Lee
 		if(currentBet > 0){
-			$("#drink div#pictureContainer span#drinkMessage").html("<b>"+oldPlayerName + "</b> you must drink...<br/><span id='numFingers'>"+(currentBet>1?currentBet + " fingers!":currentBet + " finger!")+"</span>");
+			$("#drink div#pictureContainer span#drinkMessage").html("<b>"+oldPlayerName + "</b> you must drink...<br/><span id='numFingers'>"+(currentBet>1?currentBet + " " + drinkType + "s!":currentBet + " " + drinkType + "!")+"</span>");
 		}
 		else{
 			$("#drink div#pictureContainer span#drinkMessage").html("<b>"+oldPlayerName + "</b> you must drink...<br/>&nbsp;");
@@ -236,8 +243,8 @@ $.displayTurnResults = function(nextCard,correctGuess){
 		setTimeout('$.openDialog()', 700);
 	}
 	
-	//Update fingers
-	$("#totalNumFingers").text(currentBet + ((currentBet>1 || currentBet==0)?" fingers":" finger"));
+	//Update fingers	
+	$("#totalNumFingers").text(currentBet + " " + ((currentBet>1 || currentBet==0)?drinkType +"s":drinkType));
 	//Update the score on score tab
 	$.updateScore(correctGuess, currentPlayer);
 	
@@ -386,3 +393,5 @@ var cards = new Array();
 
 //Number of drinkers displayed in table
 var maxDrinkerRows = 10;
+//Drink type
+var drinkType;

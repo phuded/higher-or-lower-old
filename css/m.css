@@ -164,6 +164,11 @@ a#addPlayer,a#delPlayer{
 	width:15%;
 }
 
+/*Padding for drink selection*/
+div.drinkOption>div{
+	margin-top:5px;
+}
+
 /* Toggle buttons */
 #gameOptions{
 	text-align: center;
