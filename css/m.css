@@ -287,13 +287,17 @@ table.scoreTable tr td.incorrect{
 	margin: 0.5em 0.2em;
 }
 
-.navButtons{
+.navButtons,.reloadButton{
 	width:300px;
 	margin-left:auto;
 	margin-right:auto;
 }
 
-.navButtons>a{
+.reloadButton>p{
+	font-size:0.9em;
+}
+
+.navButtons>a,.reloadButton>a{
 	float:right;
 	font-size: 0.8em;
 }
@@ -302,12 +306,12 @@ table.scoreTable tr td.incorrect{
 	float:left;
 }
 
-.drinkers_header > span,.navButtons>a > span  {
-	padding: 0.6em 8px 0.6em 27px !important;
+.drinkers_header > span,.navButtons>a > span, .reloadButton>a > span  {
+	padding: 0.6em 8px 0.7em 27px !important;
 	white-space: normal;
 }
 
-.drinkers_header span.ui-icon,.navButtons>a span.ui-icon {
+.drinkers_header span.ui-icon,.navButtons>a span.ui-icon, .reloadButton>a span.ui-icon{
 	left: 4px;
 }
 

@@ -28,7 +28,7 @@ $.getPlayerList = function(){
 	//Get Player List
 	$.ajax({
 		type: "POST",
-		url: "listPlayers",
+		url: "listPlayers.php",
 		dataType: "json",
 		success: function(json){			
 			var options = ''; 
@@ -215,7 +215,7 @@ $.displayTurnResults = function(nextCard,correctGuess){
 	if(oldPlayerName.indexOf("Player ") == -1){
 		$.ajax({
 			type: "POST",
-			url: "editPlayer",
+			url: "editPlayer.php",
 			data: "name="+oldPlayerName+"&maxFingers="+(correctGuess?0:currentBet)+"&maxCorrect="+winningRun,
 			dataType: "json",
 			success: function(msg){							

@@ -72,7 +72,7 @@ $.createNewPlayer = function(show, player){
 				//Add new player
 				$.ajax({
 					type: "POST",
-					url: "createPlayer",
+					url: "createPlayer.php",
 					data: "name="+playerName+"&fname="+fName+"&surName="+surName,
 					dataType: "json",
 					success: function(json){
@@ -225,7 +225,7 @@ $.navDrinkersTab = function(dir){
 $.generateDrinkersTable = function(table,orderBy,sDir,num,start){
 	$.ajax({
 		type: "POST",
-		url: "listScores",
+		url: "listScores.php",
 		dataType:"json",
 		data:"orderBy="+orderBy+"&dir="+sDir+"&num="+num+"&start="+start,
 		success: function(json){

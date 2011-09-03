@@ -117,8 +117,10 @@
 					<a href="javascript:$.createNewPlayer(false,false)" id="cancelPlayer" data-role="button" data-theme="c" data-inline="true" data-icon="back">Cancel</a>
 					<p style="display:none;">User name already in use or invalid!</p>
 				</div>
-				<!-- Download required icon -->
+				<!-- Download required icons -->
 				<img src="http://code.jquery.com/mobile/1.0b2/images/icon-search-black.png" style="display:none;"><img>
+				<img src="http://code.jquery.com/mobile/1.0b2/images/icons-18-white.png" style="display:none;"><img>
+				<img src="http://code.jquery.com/mobile/1.0b2/images/icons-36-white.png" style="display:none;"><img>
 			</div>
 		</div>
 		
@@ -260,8 +262,12 @@
 					<img src="images/loading.gif"/>
 				</div>
 				<div class="navButtons">
-						<a href="javascript:$.navDrinkersTab(false)" data-role="button" data-icon="arrow-l" data-theme="c" data-inline="true">Prev</a>
-						<a href="javascript:$.navDrinkersTab(true)" data-role="button" data-icon="arrow-r" data-theme="a" data-inline="true">Next</a>
+						<a href="javascript:$.navDrinkersTab(-1)" data-role="button" data-icon="arrow-l" data-theme="c" data-inline="true">Prev</a>
+						<a href="javascript:$.navDrinkersTab(1)" data-role="button" data-icon="arrow-r" data-theme="a" data-inline="true">Next</a>
+				</div>
+				<div class="reloadButton" style="display:none;">
+						<p>Could not load drinkers, please check your internet connection & try again.</p>
+						<a href="javascript:$.navDrinkersTab(0)" data-role="button" data-icon="refresh" data-theme="a">Reload</a>
 				</div>
 			</div>
 
