@@ -1,0 +1,11 @@
+Options -Multiviews
+Options +FollowSymLinks
+
+RewriteEngine on
+RewriteBase /higherorlower
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html
