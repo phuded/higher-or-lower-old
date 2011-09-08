@@ -19,9 +19,12 @@
 		<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.js"></script>
 		<script type="text/javascript" src="../jquery/jquery.flip.min.js"></script>
-
-		<script type="text/javascript" src="m.js"></script>   
-		<script type="text/javascript" src="m_trans.js"></script>
+		
+		<script type="text/javascript" src="mobile_js/engine.js"></script>
+		<script type="text/javascript" src="mobile_js/form.js"></script>
+		<script type="text/javascript" src="mobile_js/scores.js"></script> 
+		<script type="text/javascript" src="mobile_js/drinkers.js"></script>   		
+		<script type="text/javascript" src="mobile_js/trans.js"></script>
 		
 		<link rel="icon" href="favicon.ico" type="image/x-icon" /> 		
 		
@@ -32,10 +35,9 @@
 		</script>
 	</head>
 	<body>
-		
 		<!-- Dialogue Form -->
-		<div data-role="page" id="form">
-			<div data-role="header" data-theme="b" class="header">
+		<div data-role="page" id="form" data-title="Higher-Lower">
+			<div data-role="header" data-theme="b">
 				<h1>New Game</h1>
 			</div>
 			<div id="newGameForm" data-role="content" class="tab-content">
@@ -96,7 +98,7 @@
 								<label for="wholePack">Use the whole pack</label>
 							</fieldset>
 						</div>
-					</div>	
+					</div>				
 					<a href="javascript:$.startGame()" id="start" data-role="button" data-theme="b" data-inline="true" data-icon="check">Play!</a>
 					<a href="javascript:$.closeForm()" id="cancel" data-role="button" data-theme="c" data-inline="true" data-icon="back">Cancel</a>
 				</div>
@@ -275,7 +277,7 @@
 		
 		<!-- Lee You must drink Form -->
 		<div data-role="dialog" id="drink">
-			<div id="pictureHeader" data-role="header" data-theme="b" class="header">
+			<div data-role="header" data-theme="b" class="header">
 				<h1>Drink!</h1>
 			</div>
 			<div id="pictureContainer" data-role="content">	

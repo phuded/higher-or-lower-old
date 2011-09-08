@@ -23,30 +23,6 @@ $.prepareGame = function(){
 	});	
 };
 
-$.getPlayerList = function(){
-	$("div#playerList ul").html("");
-	//Get Player List
-	$.ajax({
-		type: "POST",
-		url: "listPlayers.php",
-		dataType: "json",
-		success: function(json){			
-			var options = ''; 
-			for (var i = 0; i < json.length; i++) {
-				var name =json[i].name;
-				var wName = json[i].fname?" ("+json[i].fname.substring(0,1)+"."+json[i].surname+")":"";				
-				options += "<li><a href='javascript:$.showPlayerList(false,&#39;"+name+"&#39;)'>"+name+wName+"</a></li>";
-			}
-			$("div#playerList ul").append(options);
-			
-			//Refresh View
-			$('#playerList ul').listview('refresh');	
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			//Error
-		}
-	});
-};
 
 $.startGame = function(){
 	
@@ -93,12 +69,12 @@ $.startGame = function(){
 			players.push(playerName);
 			playersScores.push(new Array());
 			//Add in header row
-			scoreTab += "<tr><th>"+playerName+"</th></tr>";
+			scoreTab += "<tr><th><a href='#' data-role='button' data-icon='grid' data-theme='"+((players.length%2 == 0)?"c":"b")+"'>"+playerName+"</a></th></tr>";
 		});
 		scoreTab += "</table>"
 	
 		//Append table to div
-		$("#scoreTab").append(scoreTab);
+		$("#scoreTab").append(scoreTab).trigger("create");
 	
 		//Display Player
 		$("#playerName").html("<strong>"+players[currentPlayer] + "</strong> guess Higher or Lower!");
@@ -265,63 +241,6 @@ $.setNextPlayer = function(){
 };
 
 
-$.addPlayerRow = function(){
-	var numPlayers = $("#playerRows tr").size();
-	var nextPlayer = numPlayers+1;
-	
-	if(numPlayers < 6){
-		var newPlayerRow = $.createRow(nextPlayer,"Player "+nextPlayer);
-		//Apply styling
-		$(newPlayerRow).appendTo("#playerRows").trigger("create");
-	}
-	
-	numPlayers = $("#playerRows tr").size();
-	
-	if(numPlayers > 1){
-		$("#playerRows tr:eq(0) td:eq(3) a").show();
-	}
-};
-		
-$.delPlayerRow = function(rowNum){	
-	var lastNum = $("#playerRows tr").size();
-	//If there is more than one player
-	if(lastNum>1){
-		if(rowNum){
-			$("#playerRows #player_"+rowNum).remove();
-			//Loop through all other players
-			for (var i = rowNum+1;i<=lastNum;i++){
-				var row = $("#playerRows #player_"+i);
-				var name = row.find('input').val();
-
-				if(name == "Player "+i){
-					name = "Player "+(i-1);
-				}
-				row.remove();
-
-				$($.createRow(i-1,name)).appendTo("#playerRows").trigger("create");
-			}
-		}
-		else{
-			$("#playerRows #player_"+lastNum).remove();
-		}
-	}
-	
-	lastNum = $("#playerRows tr").size();
-	if(lastNum == 1){
-		$("#playerRows tr:eq(0) td:eq(3) a").hide();
-	}
-};
-
-$.createRow = function (playerNumber,name){
-	var newPlayerRow = "<tr id='player_"+playerNumber+"'><td><input type='text' value='"+name+"' MAXLENGTH=8/></td>";
-		
-	newPlayerRow += "<td class='icon'><a id='add_"+playerNumber+"' href='javascript:$.createNewPlayer(true,"+playerNumber+")' data-role='button' data-icon='plus' data-iconpos='notext'>Create</a></td><td class='icon'><a id='search_"+playerNumber+"' href='javascript:$.showPlayerList(true, "+playerNumber+")' data-role='button' data-icon='search' data-iconpos='notext'>Choose</a></td><td class='icon'><a id='del_"+playerNumber+"' href='javascript:$.delPlayerRow("+playerNumber+")' data-role='button' data-icon='delete' data-iconpos='notext'>Delete</a></td>";
-	
-	newPlayerRow += "</tr>"
-
-	return newPlayerRow;
-};
-
 //Reset the pack
 $.resetPack = function(){
 	if($("#wholePack").attr('checked')){
@@ -347,33 +266,6 @@ $.compareCards = function(next,current){
 	return (parseInt(next.substring(1)) >= parseInt(current.substring(1)));
 };
 
-//Update the score for a player
-$.updateScore = function(correct, oldPlayer){
-	//Add score to array and score tab
-	playersScores[oldPlayer].push(correct);
-	
-	//Get the row object for the old player
-	var playerScoreRow = $("#scoreTab table tr:eq("+oldPlayer+")");
-
-	$.addScoreCol(playerScoreRow,correct,oldPlayer);
-};
-
-//Add a new column to the score tab
-$.addScoreCol = function(playerScoreRow,correct, playerId){
-	//If table is full - delete first row before adding latest
-	
-	var numCols = 6;
-	
-	if(playerScoreRow.children("td").size() == numCols){
-		playerScoreRow.find("td:eq(0)").remove();
-	}
-	if(correct){
-		playerScoreRow.append("<td class='correct'>" + playersScores[playerId].length)
-	}
-	else{
-		playerScoreRow.append("<td class='incorrect'>" + playersScores[playerId].length)
-	}
-};
 
 Array.prototype.remove = function(from, to) {
   var rest = this.slice((to || from) + 1 || this.length);

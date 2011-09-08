@@ -201,6 +201,9 @@ div.drinkOption>div{
 }
 
 /*Scores tab */
+#scoreTab{
+	padding:10px;
+}
 
 table.scoreTable{
 	border:1px solid #6D7B8D;
@@ -208,18 +211,29 @@ table.scoreTable{
     border-top-left-radius: 0.6em;
 	font-weight: bold;
     text-shadow: none;
-	padding:5px;
+	padding:3px;
 }
 
 table.scoreTable tr th, table.scoreTable tr td{
-	padding:4px;
+	padding:2px;
 }
 
 table.scoreTable tr th{
-	width:80px;
-	max-width: 80px;
-	text-shadow: 0 1px 0 grey;
-	text-align: left;
+	width:100px;
+	max-width:100px;
+}
+
+table.scoreTable tr th a{
+	font-size: 0.8em;
+	width:90px;
+}
+
+table.scoreTable tr th a>span{
+	padding: .6em 0 .6em 20px !important;
+}
+
+table.scoreTable tr th a>span>span.ui-icon{
+	left:4px;
 }
 
 table.scoreTable tr td{

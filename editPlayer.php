@@ -5,6 +5,7 @@ date_default_timezone_set('GMT');
 $playerQuery = mysql_query("SELECT * FROM player where name='$_POST[name]'");
 $sql="";
 $sqlDate="";
+$result = "Player not in DB";
 
 if(mysql_num_rows($playerQuery)){
    //exists
