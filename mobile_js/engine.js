@@ -5,9 +5,9 @@ $.prepareGame = function(){
 	$.getPlayerList();
 	
 	$('#drink').live('pageshow',function(event){
-			var fingers = $("#numFingers");
-			fingers.animate({fontSize:'3.0em'}, 400);
-			fingers.animate({fontSize:'1.0em'}, 300);
+		var fingers = $("#numFingers");
+		fingers.animate({fontSize:'3.0em'}, 400);
+		fingers.animate({fontSize:'1.0em'}, 300);
 		
 	});
 	
@@ -15,6 +15,11 @@ $.prepareGame = function(){
 	$('#drinkers').live('pageshow',function(event){
 		$("#drinkersTab table").removeData("sort");
 		$.generateDrinkersTab(2,"max_finger","desc");
+	});
+	
+	//When the scores tab is unselected - reset deep dive
+	$('#game,#drinkers').live('pageshow',function(event){
+		$.showPlayerStats(0,false);
 	});
 	
 	//Show loading on drinkers tab close
@@ -58,10 +63,10 @@ $.startGame = function(){
 		$.resetPack();
 
 		//Reset scoretab
-		$("#scoreTab").html("");
+		$(".scoreTable").html("");
 		
 		//Create scoretab var
-		var scoreTab = "<table class='scoreTable'>";
+		var scoreTable = "";
 		
 		//Set players in array
 		$("#playerRows tr").each(function(){
@@ -69,12 +74,11 @@ $.startGame = function(){
 			players.push(playerName);
 			playersScores.push(new Array());
 			//Add in header row
-			scoreTab += "<tr><th><a href='#' data-role='button' data-icon='grid' data-theme='"+((players.length%2 == 0)?"c":"b")+"'>"+playerName+"</a></th></tr>";
+			scoreTable += "<tr><th><a href='javascript:$.showPlayerStats("+(players.length-1)+",true)' data-role='button' data-icon='grid' data-theme='"+((players.length%2 == 0)?"c":"b")+"'>"+playerName+"</a></th></tr>";
 		});
-		scoreTab += "</table>"
 	
 		//Append table to div
-		$("#scoreTab").append(scoreTab).trigger("create");
+		$(".scoreTable").append(scoreTable).trigger("create");
 	
 		//Display Player
 		$("#playerName").html("<strong>"+players[currentPlayer] + "</strong> guess Higher or Lower!");
@@ -208,10 +212,10 @@ $.displayTurnResults = function(nextCard,correctGuess){
 	if(!correctGuess){
 		//Show Lee
 		if(currentBet > 0){
-			$("#drink div#pictureContainer span#drinkMessage").html("<b>"+oldPlayerName + "</b> you must drink...<br/><span id='numFingers'>"+(currentBet>1?currentBet + " " + drinkType + "s!":currentBet + " " + drinkType + "!")+"</span>");
+			$("#drinkMessage").html("<b>"+oldPlayerName + "</b> you must drink...<br/><span id='numFingers'>"+(currentBet>1?currentBet + " " + drinkType + "s!":currentBet + " " + drinkType + "!")+"</span>");
 		}
 		else{
-			$("#drink div#pictureContainer span#drinkMessage").html("<b>"+oldPlayerName + "</b> you must drink...<br/>&nbsp;");
+			$("#drinkMessage").html("<b>"+oldPlayerName + "</b> you must drink...<br/>&nbsp;");
 		}
 		//Reset bet since all fingers drank!
 		currentBet =0;

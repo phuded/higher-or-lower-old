@@ -235,8 +235,17 @@
 					</div>
 			</div>
 
-			<div id="scoreTab" class="tab-content" data-role="content">	
+			<div id="scoreTab" class="tab-content" data-role="content">
+				<table class="scoreTable"></table>
+				<div id="scoreStats" style="display:none;">
+					<h2 id="stats_name" style="color:#155678;"></h2>
+					<p id="stats_correct"><b>Correct Guesses: </b><span></span></p>
+					<p id="stats_incorrect"><b>Incorrect Guesses: </b><span></span></p>
+					<p id="stats_percentage"><b>Percentage Correct: </b><span></span></p>
+					<a href="javascript:$.showPlayerStats(0,false)" data-role="button" data-icon="back" data-theme="c">Back</a>
+				</div>
 			</div>
+			
 		</div>
 		
 		<div data-role="page" id="drinkers" data-theme="b">
