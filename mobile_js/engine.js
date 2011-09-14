@@ -17,15 +17,21 @@ $.prepareGame = function(){
 		$.generateDrinkersTab(2,"max_finger","desc");
 	});
 	
-	//When the scores tab is unselected - reset deep dive
-	$('#game,#drinkers').live('pageshow',function(event){
+	//When the scores tab is unselected - reset the stats deep view
+	$('#scores').live('pagehide',function(event){
 		$.showPlayerStats(0,false);
 	});
+
+	//Show cancel button when form closes for future
+	$('#form').live('pagehide',function(event){
+		$("#cancel").show();
+	});	
 	
 	//Show loading on drinkers tab close
 	$('#game, #scores').live('pageshow',function(event){
 		$.showLoading(true);
 	});	
+
 };
 
 
@@ -93,7 +99,7 @@ $.startGame = function(){
 		//Close Dialogue
 		$.closeForm();
 		//Display card
-		$.displayCard(currentCard,"");
+		$.displayCard(currentCard,"none");
 
 		//Reset bet slider
 		$("#currentNumFingers").val(0).slider("refresh");
@@ -115,9 +121,7 @@ $.nextTurn = function(higherGuess){
 		var correctGuess = (higherGuess & $.compareCards(nextCard,currentCard)) || (!higherGuess & $.compareCards(currentCard,nextCard)); 
 		
 		//Display card
-		$.displayCard(nextCard,$.compareCards(nextCard,currentCard),correctGuess);
-		//Display results, and update scores and set next player
-		$.displayTurnResults(nextCard,correctGuess);
+		$.displayCard(nextCard,correctGuess);
 		
 		//Finally make the current card the next one
 		currentCard=nextCard;
@@ -125,16 +129,18 @@ $.nextTurn = function(higherGuess){
 };
 
 //Display the card
-$.displayCard = function(card,nextCardHigher,correctGuess){
+$.displayCard = function(card,correctGuess){
 	$("#cardDisplay img:visible").hide();
-	$("#cardDisplay img#"+card).show();
+	$("#"+card).show();
 	
-	if(nextCardHigher!==""){
-		$("#cardDisplay img#"+card).flip({
-			direction:nextCardHigher?'lr':'rl',
-			speed: 250,
+	if(correctGuess !== "none"){
+
+		$("#"+card).flip({
+			direction:$.compareCards(card,currentCard)?'lr':'rl',
+			speed: 400,
 			color:"white",
 			onEnd: function(){
+
 				if(correctGuess){
 					//Green background
 					$("#cardDisplay").css("background-color","green");
@@ -142,7 +148,24 @@ $.displayCard = function(card,nextCardHigher,correctGuess){
 				else{
 					//Red background
 					$("#cardDisplay").css("background-color","red");
+					
+					//Show Lee
+					if(currentBet > 0){
+						$("#drinkMessage").html("<b>"+players[currentPlayer] + "</b> you must drink...<br/><span id='numFingers'>"+(currentBet>1?currentBet + " " + drinkType + "s!":currentBet + " " + drinkType + "!")+"</span>");
+					}
+					else{
+						$("#drinkMessage").html("<b>"+players[currentPlayer] + "</b> you must drink...<br/>&nbsp;");
+					}
+					//Reset bet since all fingers drank!
+					currentBet =0;
+					//Show Lee
+					setTimeout('$.openDialog()', 500);
 				}
+				
+				//Update scores
+				$.updateResults(correctGuess);
+				//Set the next player and change text
+				$.setNextPlayer();
 			}
 		});
 	}
@@ -169,7 +192,7 @@ $.displayCard = function(card,nextCardHigher,correctGuess){
 };
 
 //Determine if correct, update picture and text
-$.displayTurnResults = function(nextCard,correctGuess){
+$.updateResults = function(correctGuess){
 
 	var oldPlayerName = players[currentPlayer];
 	
@@ -207,30 +230,11 @@ $.displayTurnResults = function(nextCard,correctGuess){
 		});
 	}
 	
-	
-	//Show Lee if wrong
-	if(!correctGuess){
-		//Show Lee
-		if(currentBet > 0){
-			$("#drinkMessage").html("<b>"+oldPlayerName + "</b> you must drink...<br/><span id='numFingers'>"+(currentBet>1?currentBet + " " + drinkType + "s!":currentBet + " " + drinkType + "!")+"</span>");
-		}
-		else{
-			$("#drinkMessage").html("<b>"+oldPlayerName + "</b> you must drink...<br/>&nbsp;");
-		}
-		//Reset bet since all fingers drank!
-		currentBet =0;
-		//Show Lee
-		setTimeout('$.openDialog()', 700);
-	}
-	
 	//Update fingers	
 	$("#totalNumFingers").text(currentBet + " " + ((currentBet>1 || currentBet==0)?drinkType +"s":drinkType));
+	
 	//Update the score on score tab
 	$.updateScore(correctGuess, currentPlayer);
-	
-	//Set the next player and change text
-	$.setNextPlayer();
-	$("#playerName").html("<strong>"+players[currentPlayer] + "</strong> guess Higher or Lower!");
 };
 
 
@@ -242,6 +246,8 @@ $.setNextPlayer = function(){
 	else{
 		currentPlayer++;
 	}
+	//change text
+	$("#playerName").html("<strong>"+players[currentPlayer] + "</strong> guess Higher or Lower!");
 };
 
 
