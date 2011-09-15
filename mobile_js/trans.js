@@ -3,6 +3,8 @@ $.openForm = function(){
 	//Clear Search
 	$("div#playerList input").val("");
 	$('div#playerList ul li').removeClass('ui-screen-hidden'); 
+	//Reset to top panel
+	$('.formPanel .ui-collapsible-contain:eq(0)').trigger('expand');
 	
 	//Show Form
 	$.mobile.changePage( "#form", {

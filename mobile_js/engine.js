@@ -94,19 +94,19 @@ $.startGame = function(){
 		
 		//Hide any current card
 		$("#cardDisplay").css("background-color","");
-		$("#cardDisplay img").hide();
+		$("#card").hide();
 		
 		//Close Dialogue
 		$.closeForm();
 		//Display card
-		$.displayCard(currentCard,"none");
+		$.displayCard(currentCard);
 
 		//Reset bet slider
 		$("#currentNumFingers").val(0).slider("refresh");
 	}
 };
 
-$.nextTurn = function(higherGuess){
+$.playTurn = function(higherGuess){
 	if(players.length>0){
 		//Remove colour from background
 		$("#cardDisplay").css("background-color","");
@@ -128,56 +128,84 @@ $.nextTurn = function(higherGuess){
 	}
 };
 
+
+
 //Display the card
 $.displayCard = function(card,correctGuess){
-	$("#cardDisplay img:visible").hide();
-	$("#"+card).show();
+	//Card number
+	var cardNum = parseInt(card.substring(1));
+	//Card image
+	var cardImg = $("#card");
 	
-	if(correctGuess !== "none"){
-
-		$("#"+card).flip({
-			direction:$.compareCards(card,currentCard)?'lr':'rl',
-			speed: 400,
-			color:"white",
-			onEnd: function(){
-
-				if(correctGuess){
-					//Green background
-					$("#cardDisplay").css("background-color","green");
-				}
-				else{
-					//Red background
-					$("#cardDisplay").css("background-color","red");
-					
-					//Show Lee
-					if(currentBet > 0){
-						$("#drinkMessage").html("<b>"+players[currentPlayer] + "</b> you must drink...<br/><span id='numFingers'>"+(currentBet>1?currentBet + " " + drinkType + "s!":currentBet + " " + drinkType + "!")+"</span>");
+	//Not first card -flipping
+	if(correctGuess !== undefined){
+		//Hide slider if bet on any card is off
+		if(!$("#fullBetting").attr('checked')){
+			$("#sliderBar").hide();
+		}
+		//Rotate card and display new one
+		cardImg.rotate3Di(
+			360,
+			1000,
+			{
+				sideChange: function(front) {
+						if (front) {
+							//Replace image
+							$(this).attr('src',"images/lightcards/"+card+".gif");					
+						} else {
+							//Make back of card the pack;
+							$(this).attr('src','images/lightcards/cardback.jpg');
+						}
+				},
+				complete:function(){
+				
+					if(correctGuess){
+						//Green background
+						$("#cardDisplay").css("background-color","green");
 					}
 					else{
-						$("#drinkMessage").html("<b>"+players[currentPlayer] + "</b> you must drink...<br/>&nbsp;");
+						//Red background
+						$("#cardDisplay").css("background-color","#EE4848");
+					
+						//Show Lee
+						if(currentBet > 0){
+							$("#drinkMessage").html("<b>"+players[currentPlayer] + "</b> you must drink...<br/><span id='numFingers'>"+(currentBet>1?currentBet + " " + drinkType + "s!":currentBet + " " + drinkType + "!")+"</span>");
+						}
+						else{
+							$("#drinkMessage").html("<b>"+players[currentPlayer] + "</b> you must drink...<br/>&nbsp;");
+						}
+						//Reset bet since all fingers drank!
+						currentBet =0;
+						//Show Lee
+						$.openDialog();
 					}
-					//Reset bet since all fingers drank!
-					currentBet =0;
-					//Show Lee
-					setTimeout('$.openDialog()', 500);
+					
+					//Check if can display betting buttons
+					if((cardNum>5 & cardNum<11) || $("#fullBetting").attr('checked')){
+						$("#sliderBar").show();
+					}
+						
+					//Update scores
+					$.updateScores(correctGuess);
+					
+					//Set the next player and change text
+					$.setNextPlayer();
 				}
-				
-				//Update scores
-				$.updateResults(correctGuess);
-				//Set the next player and change text
-				$.setNextPlayer();
 			}
-		});
-	}
-		
-	var cardNum = parseInt(card.substring(1));
-	
-	//Check if can display betting buttons
-	if((cardNum>5 & cardNum<11) || $("#fullBetting").attr('checked')){
-		$("#sliderBar").show();
+		);
 	}
 	else{
-		$("#sliderBar").hide();
+		//Show first card
+		cardImg.attr('src',"images/lightcards/"+card+".gif");
+		cardImg.show();
+		
+		//Check if can display betting buttons
+		if((cardNum>5 & cardNum<11) || $("#fullBetting").attr('checked')){
+			$("#sliderBar").show();
+		}
+		else{
+			$("#sliderBar").hide();
+		}
 	}
 	
 	//Remove card if remove cards is enabled
@@ -188,15 +216,17 @@ $.displayCard = function(card,correctGuess){
 			$.resetPack();
 		}
 	}
+	
+	//Update num of cards left
 	$("#cardsLeft").html((((cards.length==13 & !$("#wholePack").attr('checked')) || cards.length==52)?"<u>"+cards.length+"</u>":cards.length) + " " +(cards.length>1?"cards":"card"));
 };
 
-//Determine if correct, update picture and text
-$.updateResults = function(correctGuess){
+//Update DB, scores and current number of fingers
+$.updateScores = function(correctGuess){
 
 	var oldPlayerName = players[currentPlayer];
 	
-	//Check fro winning streak
+	//Check for winning streak
 	var winningRun = 0;
 	
 	if(correctGuess){
