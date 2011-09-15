@@ -177,7 +177,7 @@ $.displayCard = function(card,correctGuess){
 						//Reset bet since all fingers drank!
 						currentBet =0;
 						//Show Lee
-						$.openDialog();
+						setTimeout('$.openDialog()',300);
 					}
 					
 					//Check if can display betting buttons
