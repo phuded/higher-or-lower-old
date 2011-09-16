@@ -149,13 +149,13 @@ $.displayCard = function(card,correctGuess){
 			1000,
 			{
 				sideChange: function(front) {
-						if (front) {
-							//Replace image
-							$(this).attr('src',"images/lightcards/"+card+".gif");					
-						} else {
-							//Make back of card the pack;
-							$(this).attr('src','images/lightcards/cardback.jpg');
-						}
+					if (front) {
+						//Replace image
+						$(this).css('background',"url(images/allcards.jpg) no-repeat "+$.getCardCoords(card));			
+					} else {
+						//Make back of card the pack;
+						$(this).css('background','url(images/backcard.jpg) no-repeat 0px 0px');
+					}
 				},
 				complete:function(){
 				
@@ -177,7 +177,7 @@ $.displayCard = function(card,correctGuess){
 						//Reset bet since all fingers drank!
 						currentBet =0;
 						//Show Lee
-						setTimeout('$.openDialog()',300);
+						setTimeout('$.openDialog()',150);
 					}
 					
 					//Check if can display betting buttons
@@ -186,7 +186,7 @@ $.displayCard = function(card,correctGuess){
 					}
 						
 					//Update scores
-					$.updateScores(correctGuess);
+					$.updateTurnScores(correctGuess);
 					
 					//Set the next player and change text
 					$.setNextPlayer();
@@ -195,8 +195,8 @@ $.displayCard = function(card,correctGuess){
 		);
 	}
 	else{
-		//Show first card
-		cardImg.attr('src',"images/lightcards/"+card+".gif");
+		//Showing card for first time
+		cardImg.css('background',"url(images/allcards.jpg) no-repeat "+$.getCardCoords(card));		
 		cardImg.show();
 		
 		//Check if can display betting buttons
@@ -222,7 +222,7 @@ $.displayCard = function(card,correctGuess){
 };
 
 //Update DB, scores and current number of fingers
-$.updateScores = function(correctGuess){
+$.updateTurnScores = function(correctGuess){
 
 	var oldPlayerName = players[currentPlayer];
 	
@@ -311,6 +311,28 @@ Array.prototype.remove = function(from, to) {
   var rest = this.slice((to || from) + 1 || this.length);
   this.length = from < 0 ? this.length + from : from;
   return this.push.apply(this, rest);
+};
+
+//Return card coords 
+$.getCardCoords = function(card){
+	var cardSuit = card.substring(0,1);
+	var y;
+	
+	if(cardSuit == 'c'){
+		y = "0px"
+	}
+	else if (cardSuit == 'd'){
+		y = "-145px"
+	}
+	else if (cardSuit == 'h'){
+		y = "-290px"
+	}
+	else{
+		y = "-435px"
+	}
+	var x = (parseInt(card.substring(1)) - 2) * -100;
+
+	return x + "px " + y;
 };
 
 //Game variables

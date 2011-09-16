@@ -41,10 +41,12 @@
 
 #card{
 	width:100px;
-	height:150px;
-	margin-top: 18%;
-	background-color:white;
+	height:145px;
+	margin-top: 20%;
+	margin-left:auto;
+	margin-right:auto;
 	border: 1px outset grey;
+	background:url(../images/backcard.jpg) no-repeat 0px 0px;
 }
 
 /* Betting buttons */
