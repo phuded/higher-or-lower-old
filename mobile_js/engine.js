@@ -95,8 +95,8 @@ $.startGame = function(){
 		//Hide any current card
 		$("#cardDisplay").removeClass('green red');
 		
-		//Close Dialogue
-		$.preLoadImages('images/allcards.png',function() {
+		//Preload images & close dialogue
+		$.preLoadImages(preloadImages,function() {
 			$.closeForm();
 			//Display card
 			$.displayCard(currentCard);
@@ -382,3 +382,5 @@ var cards = new Array();
 var maxDrinkerRows = 10;
 //Drink type
 var drinkType;
+//Images to preload
+var preloadImages =['images/allcards.png','images/correct.jpg','images/incorrect.jpg'];
