@@ -1,6 +1,6 @@
 
 $.prepareGame = function(){
-	
+		
 	//Get player list
 	$.getPlayerList();
 	
@@ -151,10 +151,10 @@ $.displayCard = function(card,correctGuess){
 				sideChange: function(front) {
 					if (front) {
 						//Replace image
-						$(this).css('background',"url(images/allcards.jpg) no-repeat "+$.getCardCoords(card));			
+						$(this).css('background','url(images/allcards.png) no-repeat '+$.getCardCoords(card));			
 					} else {
 						//Make back of card the pack;
-						$(this).css('background','url(images/backcard.jpg) no-repeat 0px 0px');
+						$(this).css('background','url(images/allcards.png) no-repeat 0px -580px');	
 					}
 				},
 				complete:function(){
@@ -196,7 +196,7 @@ $.displayCard = function(card,correctGuess){
 	}
 	else{
 		//Showing card for first time
-		cardImg.css('background',"url(images/allcards.jpg) no-repeat "+$.getCardCoords(card));		
+		cardImg.css('background',"url(images/allcards.png) no-repeat "+$.getCardCoords(card));		
 		cardImg.show();
 		
 		//Check if can display betting buttons
