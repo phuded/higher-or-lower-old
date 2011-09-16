@@ -36,7 +36,13 @@
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
 	border-radius: 8px;
+}
 
+#cardDisplay.green{
+	background:url("../images/correct.jpg") repeat scroll 0 0 transparent;
+}
+#cardDisplay.red{
+	background:url("../images/incorrect.jpg") repeat scroll 0 0 transparent;
 }
 
 #card{

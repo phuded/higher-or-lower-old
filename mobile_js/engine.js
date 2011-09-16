@@ -93,7 +93,7 @@ $.startGame = function(){
 		currentCard = cards[Math.floor(Math.random()*cards.length)];
 		
 		//Hide any current card
-		$("#cardDisplay").css("background-color","");
+		$("#cardDisplay").removeClass('green red');
 		
 		//Close Dialogue
 		$.preLoadImages('images/allcards.png',function() {
@@ -109,7 +109,7 @@ $.startGame = function(){
 $.playTurn = function(higherGuess){
 	if(players.length>0){
 		//Remove colour from background
-		$("#cardDisplay").css("background-color","");
+		$("#cardDisplay").removeClass('green red');
 		//Add just made bet to total bet
 		currentBet += parseInt($("#currentNumFingers").val());
 
@@ -161,11 +161,11 @@ $.displayCard = function(card,correctGuess){
 				
 					if(correctGuess){
 						//Green background
-						$("#cardDisplay").css("background-color","green");
+						$("#cardDisplay").addClass('green');
 					}
 					else{
 						//Red background
-						$("#cardDisplay").css("background-color","#EE4848");
+						$("#cardDisplay").addClass('red');
 					
 						//Show Lee
 						if(currentBet > 0){
