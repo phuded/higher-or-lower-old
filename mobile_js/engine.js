@@ -71,6 +71,11 @@ $.startGame = function(){
 		//Reset scoretab
 		$(".scoreTable").html("");
 		
+		//Show loading
+		if(!$("#cancel").is(":visible")){
+			$(".game_spinner").show();
+		}
+		
 		//Create scoretab var
 		var scoreTable = "";
 		
@@ -97,6 +102,8 @@ $.startGame = function(){
 		
 		//Preload images & close dialogue
 		$.preLoadImages(preloadImages,function() {
+			//Hide loading
+			$(".game_spinner").hide();
 			$.closeForm();
 			//Display card
 			$.displayCard(currentCard);

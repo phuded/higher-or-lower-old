@@ -194,6 +194,19 @@ div.drinkOption>div{
 	padding: 1px 8px 4px 8px;
 }
 
+.game_spinner{
+	position:relative;
+	top:3px;
+	left:10px;
+}
+
+.game_spinner img{
+	height:30px;
+	width:30px;
+	position:relative;
+	top:9px;
+}
+
 /*Player List*/
 #playerList li{
 	font-size:0.9em;
