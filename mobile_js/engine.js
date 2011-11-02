@@ -40,10 +40,8 @@ $.startGame = function(){
 	var canPlay = true;
 		
 	//Check to ensure all player names are entered
-	$("#playerRows div").each(function(){
-		var playerName = $($(this).children("input")[0]).val();
-
-		if(playerName == ""){
+	$("#playerRows tr").each(function(){
+		if($(this).children("td:eq(0)").children("input").val() == ""){
 			canPlay = false;
 		}
 	});
