@@ -14,5 +14,4 @@ $output[] = $arrayRes;
 
 echo json_encode($output);
 
-mysql_close($link);
 ?>

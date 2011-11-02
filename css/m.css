@@ -128,9 +128,7 @@ div#pictureContainer >div{
 }
 
 #pictureDisplay{
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom:5px;
+	margin:20px auto 5px;
 	width:174px;
 	height:174px;
 	border:1px solid #7AB9F0;
@@ -151,11 +149,6 @@ span#drinkMessage{
 
 }
 
-.formPanel >div>div{
-	margin: 0 0 1px 0;
-	padding: 4px 0 4px 2px;
-}
-
 /*Add/remove buttons*/
 a#addPlayer,a#delPlayer{
 	font-size:0.8em;
@@ -171,11 +164,6 @@ a#addPlayer,a#delPlayer{
 
 #playerRows tr td.icon{
 	width:15%;
-}
-
-/*Padding for drink selection*/
-div.drinkOption>div{
-	margin-top:5px;
 }
 
 /* Toggle buttons */

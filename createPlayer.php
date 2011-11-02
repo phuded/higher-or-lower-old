@@ -14,5 +14,4 @@ else{
 
 echo json_encode($arrayRes);
 
-mysql_close($link);
 ?>

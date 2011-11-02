@@ -143,6 +143,8 @@ $.displayCard = function(card,correctGuess){
 	var cardNum = parseInt(card.substring(1));
 	//Card image
 	var cardImg = $("#card");
+	//Bet before reset
+	var cBet = currentBet;
 	
 	//Not first card -flipping
 	if(correctGuess !== undefined){
@@ -193,7 +195,7 @@ $.displayCard = function(card,correctGuess){
 					}
 						
 					//Update scores
-					$.updateTurnScores(correctGuess);
+					$.updateTurnScores(correctGuess,cBet);
 					
 					//Set the next player and change text
 					$.setNextPlayer();
@@ -229,7 +231,7 @@ $.displayCard = function(card,correctGuess){
 };
 
 //Update DB, scores and current number of fingers
-$.updateTurnScores = function(correctGuess){
+$.updateTurnScores = function(correctGuess,cBet){
 
 	var oldPlayerName = players[currentPlayer];
 	
@@ -251,21 +253,18 @@ $.updateTurnScores = function(correctGuess){
 		}
 	}
 	
-	//Update DB if not a test player
-	if(oldPlayerName.indexOf("Player ") == -1){
-		$.ajax({
-			type: "POST",
-			url: "editPlayer.php",
-			data: "name="+oldPlayerName+"&maxFingers="+(correctGuess?0:currentBet)+"&maxCorrect="+winningRun,
-			dataType: "json",
-			success: function(msg){							
-				//Updated!
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				// Error!
-			}
-		});
-	}
+	$.ajax({
+		type: "POST",
+		url: "editPlayer.php",
+		data: "name="+oldPlayerName+"&maxFingers="+(correctGuess?0:cBet)+"&maxCorrect="+winningRun,
+		dataType: "json",
+		success: function(msg){							
+			//Updated!
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			// Error!
+		}
+	});
 	
 	//Update fingers	
 	$("#totalNumFingers").text(currentBet + " " + ((currentBet>1 || currentBet==0)?drinkType +"s":drinkType));

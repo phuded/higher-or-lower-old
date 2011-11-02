@@ -3,8 +3,6 @@ include 'config.php';
 date_default_timezone_set('GMT');
 
 $playerQuery = mysql_query("SELECT * FROM player where name='$_POST[name]'");
-$sql="";
-$sqlDate="";
 $result = "Player not in DB";
 
 if(mysql_num_rows($playerQuery)){
@@ -32,13 +30,13 @@ if(mysql_num_rows($playerQuery)){
 }
 
 
-if(!empty($sql)){
+if(isset($sql)){
 	if (!mysql_query($sql,$link)){
 	 die('Error: ' . mysql_error());
 	}
 }
 
-if(!empty($sqlDate)){
+if(isset($sqlDate)){
 	if (!mysql_query($sqlDate,$link)){
 	 die('Error: ' . mysql_error());
 	}
@@ -47,5 +45,4 @@ if(!empty($sqlDate)){
 $arrayRes = array ('success'=>true,'result'=>$result);
 echo json_encode($arrayRes);
 
-mysql_close($link);
 ?>

@@ -9,5 +9,4 @@ while($row = mysql_fetch_array($result)){
 
 echo json_encode($arrayRes);
 
-mysql_close($link);
 ?>
