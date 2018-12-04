@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -14,25 +14,26 @@
 
 		<title>Higher-Lower</title>
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
-		<link rel="stylesheet" type="text/css" href="css/m.css" />
-		
+		<link rel="stylesheet" type="text/css" href="css/main.css" />
+
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-		<script type="text/javascript" src="jquery/jquery-css-transform.js"></script>
-		<script type="text/javascript" src="jquery/rotate3Di.js"></script>
+
+		<script type="text/javascript" src="lib/jquery-css-transform.js"></script>
+		<script type="text/javascript" src="lib/rotate3Di.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
-		
-		<script type="text/javascript" src="mobile_js/engine.js"></script>
-		<script type="text/javascript" src="mobile_js/form.js"></script>
-		<script type="text/javascript" src="mobile_js/scores.js"></script> 
-		<script type="text/javascript" src="mobile_js/drinkers.js"></script>   		
-		<script type="text/javascript" src="mobile_js/trans.js"></script>
-		
-		<link rel="icon" href="favicon.ico" type="image/x-icon" /> 		
-		
-		<script type="text/javascript">                                         		
+
+		<script type="text/javascript" src="js/engine.js"></script>
+		<script type="text/javascript" src="js/form.js"></script>
+		<script type="text/javascript" src="js/scores.js"></script>
+		<script type="text/javascript" src="js/drinkers.js"></script>
+		<script type="text/javascript" src="js/trans.js"></script>
+
+		<link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+		<script type="text/javascript">
 			$(document).ready(function() {
-				$.prepareGame();	
-			});                
+				$.prepareGame();
+			});
 		</script>
 	</head>
 	<body>
@@ -82,12 +83,12 @@
 
 								<input type="radio" name="drink_choice" id="drink_spirit_pure" value="shot"  class="drinkOption"/>
 								<label for="drink_spirit_pure">Pure Spirit</label>
-								
+
 								<input type="radio" name="drink_choice" id="drink_wine" value="sip"  class="drinkOption"/>
 								<label for="drink_wine">Wine</label>
 							</fieldset>
 						</div>
-							
+
 						<div data-role="collapsible" data-collapsed="true" data-theme="c" data-content-theme="d">
 							<h3>Game Options</h3>
 							<fieldset id="gameOptions" data-role="controlgroup" data-role="fieldcontain">
@@ -99,7 +100,7 @@
 								<label for="wholePack">Use the whole pack</label>
 							</fieldset>
 						</div>
-					</div>				
+					</div>
 					<a href="javascript:$.startGame()" id="start" data-role="button" data-theme="b" data-inline="true" data-icon="check">Play!</a>
 					<a href="javascript:$.closeForm()" id="cancel" data-role="button" data-theme="c" data-inline="true" data-icon="back" style="display:none;">Cancel</a>
 					<span class="game_spinner" style="display:none;"><img src="images/loading.gif">&nbsp;Loading</span>
@@ -130,8 +131,8 @@
 				<img src="images/incorrect.jpg" style="display:none;"/>
 			</div>
 		</div>
-		
-	
+
+
 		<div data-role="page" id="game" data-theme="b" data-title="Higher-Lower">
 			<div data-role="header" data-theme="a">
 					<div id="game_navbar" data-role="navbar">
@@ -142,7 +143,7 @@
 						</ul>
 					</div>
 			</div>
-			<div class="main" class="tab-content" data-role="content">	
+			<div class="main" class="tab-content" data-role="content">
 					<p><span id="playerName">&nbsp;</span></p>
 					<div id="sliderPanel">
 						<div id="sliderBar" style="display:none;">
@@ -150,7 +151,7 @@
 						</div>
 					</div>
 					<div id="cardDisplay">
-						<div id="card"></div>					
+						<div id="card"></div>
 					</div>
 					<div id="gameButtons" data-role="controlgroup" data-type="horizontal">
 						<a id="higher" href="javascript:$.playTurn(true)" data-role="button" data-icon="arrow-u" data-theme="b">Higher</a>
@@ -176,8 +177,8 @@
 				</div>
 			</div>
 		</div>
-		
-		
+
+
 		<div data-role="page" id="scores" data-theme="b">
 			<div data-role="header" data-theme="a">
 					<div id="scores_navbar" data-role="navbar">
@@ -202,9 +203,9 @@
 					<a href="javascript:$.showPlayerStats(0,false)" data-role="button" data-icon="back" data-theme="c">Back</a>
 				</div>
 			</div>
-			
+
 		</div>
-		
+
 		<div data-role="page" id="drinkers" data-theme="b">
 			<div data-role="header" data-theme="a">
 					<div id="drinkers_navbar" data-role="navbar">
@@ -240,13 +241,13 @@
 			</div>
 
 		</div>
-		
+
 		<!-- Lee You must drink Form -->
 		<div data-role="dialog" id="drink">
 			<div data-role="header" data-theme="b" class="header">
 				<h1>Drink!</h1>
 			</div>
-			<div id="pictureContainer" data-role="content" data-theme="b">	
+			<div id="pictureContainer" data-role="content" data-theme="b">
 				<img id="pictureDisplay" src="images/drink.jpg" class="ui-corner-all" title="You must drink!"/>
 				<div>
 					<span id="drinkMessage"></span>
@@ -254,6 +255,6 @@
 				<a href="javascript:$.closeDialog()" id="return" data-role="button" data-theme="c">Ok</a>
 			</div>
 		</div>
-		
+
 	</body>
 </html>
