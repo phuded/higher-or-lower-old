@@ -186,7 +186,7 @@ a#addPlayer, a#delPlayer{
 }
 
 #playerRows tr td.icon-del{
-	width:10%;
+	width:15%;
 }
 
 #playerRows tr td:nth-child(2){
