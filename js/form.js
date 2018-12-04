@@ -190,9 +190,9 @@ $.createRow = function (playerNumber,name){
 
 	var newPlayerRow = "<tr id='player_"+playerNumber+"'><td><input type='text' value='"+name+"' MAXLENGTH=8/></td>";
 		
-	newPlayerRow += "<td class='icon'><a id='add_"+playerNumber+"' href='javascript:$.createNewPlayer(true," + playerNumber + ")' data-role='button' data-icon='plus'>Create new</a></td>";
-	newPlayerRow += "<td class='icon'><a id='search_"+playerNumber+"' href='javascript:$.showPlayerList(true, " + playerNumber + ")' data-role='button' data-icon='search'>Choose existing</a></td>";
-	newPlayerRow += "<td class='icon-del'><a id='del_"+playerNumber+"' href='javascript:$.delPlayerRow(" + playerNumber + ")' data-role='button' data-icon='minus'>Remove</a></td>";
+	newPlayerRow += "<td class='icon'><a id='add_"+playerNumber+"' href='javascript:$.createNewPlayer(true," + playerNumber + ")' data-role='button' data-icon='plus'>New</a></td>";
+	newPlayerRow += "<td class='icon'><a id='search_"+playerNumber+"' href='javascript:$.showPlayerList(true, " + playerNumber + ")' data-role='button' data-icon='search'>Choose</a></td>";
+	newPlayerRow += "<td class='icon-del'><a id='del_"+playerNumber+"' href='javascript:$.delPlayerRow(" + playerNumber + ")' data-role='button' data-icon='minus' data-iconpos='notext'>Remove</a></td>";
 	
 	newPlayerRow += "</tr>"
 
