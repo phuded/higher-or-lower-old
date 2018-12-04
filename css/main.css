@@ -1,7 +1,8 @@
 .main{
-	/*To fit app screen perfectly*/
-	margin-top: -24px;
-	margin-bottom:-24px;
+    /*position:	absolute;
+    top:		50px;
+    bottom:		47px;
+    width: 		100%;*/
 }
 
 .tab-content{
@@ -19,7 +20,7 @@
 	margin-bottom:8px;
 }
 
-.main  *{
+.main *{
 	text-align:center;
 }
 /*Hide dialogue close button*/
@@ -56,8 +57,8 @@
 }
 
 /* Betting buttons */
-span.betButton{
-	font-size:0.9em;
+#higher,#lower{
+	width: 150px;
 }
 
 /*Slider*/
@@ -71,7 +72,7 @@ span.betButton{
 }
 
 #sliderBar div{
-	width:60%;
+	width: 70%;
 }
 
 #sliderBar div a{
@@ -81,8 +82,7 @@ span.betButton{
 }
 
 #currentNumFingers{
-	width:20px;
-	text-align: left;
+	width:25px;
 }
 
 /*Bottom bar*/
