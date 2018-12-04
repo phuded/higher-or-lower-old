@@ -56,7 +56,7 @@
 }
 
 /* Betting buttons */
-span.betButton{	
+span.betButton{
 	font-size:0.9em;
 }
 
@@ -88,6 +88,8 @@ span.betButton{
 /*Bottom bar*/
 #footer{
 	height:47px;
+	position: absolute;
+	bottom: 0;
 }
 
 #footer table{
