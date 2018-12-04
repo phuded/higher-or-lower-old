@@ -76,7 +76,7 @@
 }
 
 #sliderBar div{
-	width: 70%;
+	width: 65%;
 }
 
 #sliderBar div a{
@@ -170,15 +170,15 @@ a#addPlayer, a#delPlayer{
 
 #playerRows a{
     font-size: 0.8em;
-    margin: .4em 1px .4em 6px;
+    margin: .4em 1px .4em 5px;
 }
 
 #playerRows td.icon a span.ui-btn-inner{
-    padding: .5em 5px .5em 25px;
+    padding: .5em 3px .5em 23px;
 }
 
 #playerRows td.icon a span.ui-btn-inner span.ui-icon{
-    left: 5px;
+    left: 3px;
 }
 
 #playerRows tr td.icon{
