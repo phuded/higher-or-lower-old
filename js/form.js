@@ -7,13 +7,17 @@ $.getPlayerList = function(){
 		type: "POST",
 		url: "listPlayers.php",
 		dataType: "json",
-		success: function(json){			
+		success: function(json){
+
 			var options = ''; 
+
 			for (var i = 0; i < json.length; i++) {
+
 				var name =json[i].name;
-				var wName = json[i].fname?" ("+json[i].fname.substring(0,1)+"."+json[i].surname+")":"";				
-				options += "<li><a href='javascript:$.showPlayerList(false,&#39;"+name+"&#39;)'>"+name+wName+"</a></li>";
+				var wName = json[i].fname ?" ("+json[i].fname.substring(0, 1) + "." + json[i].surname + ")" : "";
+				options += "<li><a href='javascript:$.showPlayerList(false, &#39;" + name + "&#39;)'>"+name + wName + "</a></li>";
 			}
+
 			$("div#playerList ul").append(options);
 			
 			//Refresh View
@@ -37,13 +41,18 @@ $.showPlayerList = function(show, player){
 			playerList.fadeIn('fast');
 		 });		
 
-		playerList.data("playerNum",player);
+		playerList.data("playerNum", player);
 	}
 	else{	
 		playerList.fadeOut(function() {
 			formContent.fadeIn('fast');
-			var num = playerList.data("playerNum");
-			$("tr#player_"+num+" input").val(player);
+
+			if(player != null){
+
+                var num = playerList.data("playerNum");
+                $("tr#player_"+num+" input").val(player);
+
+			}
 		 });
 	}
 };
@@ -130,11 +139,12 @@ $.clearNewPlayerForm = function(){
 /*Add or remove rows on form */
 
 $.addPlayerRow = function(){
+
 	var numPlayers = $("#playerRows tr").size();
-	var nextPlayer = numPlayers+1;
+	var nextPlayer = numPlayers + 1;
 	
 	if(numPlayers < 6){
-		var newPlayerRow = $.createRow(nextPlayer,"Player "+nextPlayer);
+		var newPlayerRow = $.createRow(nextPlayer, "Guest "+nextPlayer);
 		//Apply styling
 		$(newPlayerRow).appendTo("#playerRows").trigger("create");
 	}
@@ -177,9 +187,12 @@ $.delPlayerRow = function(rowNum){
 };
 
 $.createRow = function (playerNumber,name){
+
 	var newPlayerRow = "<tr id='player_"+playerNumber+"'><td><input type='text' value='"+name+"' MAXLENGTH=8/></td>";
 		
-	newPlayerRow += "<td class='icon'><a id='add_"+playerNumber+"' href='javascript:$.createNewPlayer(true,"+playerNumber+")' data-role='button' data-icon='plus' data-iconpos='notext'>Create</a></td><td class='icon'><a id='search_"+playerNumber+"' href='javascript:$.showPlayerList(true, "+playerNumber+")' data-role='button' data-icon='search' data-iconpos='notext'>Choose</a></td><td class='icon'><a id='del_"+playerNumber+"' href='javascript:$.delPlayerRow("+playerNumber+")' data-role='button' data-icon='delete' data-iconpos='notext'>Delete</a></td>";
+	newPlayerRow += "<td class='icon'><a id='add_"+playerNumber+"' href='javascript:$.createNewPlayer(true," + playerNumber + ")' data-role='button' data-icon='plus'>Create new</a></td>";
+	newPlayerRow += "<td class='icon'><a id='search_"+playerNumber+"' href='javascript:$.showPlayerList(true, " + playerNumber + ")' data-role='button' data-icon='search'>Choose existing</a></td>";
+	newPlayerRow += "<td class='icon-del'><a id='del_"+playerNumber+"' href='javascript:$.delPlayerRow(" + playerNumber + ")' data-role='button' data-icon='minus'>Remove</a></td>";
 	
 	newPlayerRow += "</tr>"
 

@@ -152,7 +152,7 @@ span#drinkMessage{
 }
 
 /*Add/remove buttons*/
-a#addPlayer,a#delPlayer{
+a#addPlayer, a#delPlayer{
 	font-size:0.8em;
 	margin-left:0;
 	margin-bottom:10px;
@@ -164,7 +164,15 @@ a#addPlayer,a#delPlayer{
 	margin-left: -3px;
 }
 
+#playerRows a{
+    font-size: 0.8em;
+}
+
 #playerRows tr td.icon{
+	width:20%;
+}
+
+#playerRows tr td.icon-del{
 	width:15%;
 }
 
