@@ -5,7 +5,7 @@ $result = mysql_query("SELECT * FROM player order by $_POST[orderBy] $_POST[dir]
 $total = mysql_query("SELECT count(*) FROM player");
 
 while($row = mysql_fetch_array($result)){
-  $arrayRes[] = array('name'=>$row['name'],'maxFingers'=>$row['max_finger'],'maxCorrect'=>$row['max_correct'],'lastPlayed'=>$row['last_played']);
+  $arrayRes[] = array('name'=>$row['name'],'maxFingers'=>$row['max_finger'],'maxCorrect'=>$row['max_correct'],'maxIncorrect'=>$row['max_incorrect'],'lastPlayed'=>$row['last_played']);
 }
 $totalRes = mysql_fetch_row($total);
 
