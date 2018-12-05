@@ -155,6 +155,10 @@ span#drinkMessage{
 
 }
 
+.formPanel .ui-collapsible-content{
+	padding: 10px 8px;
+}
+
 /*Add/remove buttons*/
 a#addPlayer, a#delPlayer{
 	font-size:0.8em;
