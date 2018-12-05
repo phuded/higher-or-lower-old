@@ -20,6 +20,11 @@ if(mysql_num_rows($playerQuery)){
 	$sql="UPDATE player SET max_correct= $_POST[maxCorrect] where name='$_POST[name]';";
 	$result = "Updated Max Correct";
    }
+   //Only sent if players last guess was incorrect
+   if($_POST[maxIncorrect] > $player['max_incorrect']){
+   	$sql="UPDATE player SET max_incorrect= $_POST[maxIncorrect] where name='$_POST[name]';";
+   	$result = "Updated Max Incorrect";
+   }
    
    $lastPlayed = $player['last_played'];
 

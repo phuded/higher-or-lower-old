@@ -14,7 +14,7 @@ $.prepareGame = function(){
 	//When the drinkers tab is selected
 	$('#drinkers').live('pageshow',function(event){
 		$("#drinkersTab table").removeData("sort");
-		$.generateDrinkersTab(2,"max_finger","desc");
+		$.generateDrinkersTab(2, "max_finger", "desc");
 	});
 	
 	//When the scores tab is unselected - reset the stats deep view
@@ -237,6 +237,9 @@ $.updateTurnScores = function(correctGuess, cBet){
 	
 	//Check for winning streak
 	var winningRun = 0;
+
+	//Losing streak
+	var losingRun = 0;
 	
 	if(correctGuess){
 		//Add 1 for turn just won
@@ -255,11 +258,28 @@ $.updateTurnScores = function(correctGuess, cBet){
 			}
 		}
 	}
+	else{
+
+        losingRun = 1;
+
+        //Determine any losing streak
+        for(i = playersScores[currentPlayer].length; i--; i>=0){
+
+            var prevTurn = playersScores[currentPlayer][i];
+
+            if(!prevTurn){
+                losingRun++;
+            }
+            else{
+                break;
+            }
+        }
+	}
 	
 	$.ajax({
 		type: "POST",
 		url: "editPlayer.php",
-		data: "name=" + oldPlayerName + "&maxFingers=" + (correctGuess? 0 : cBet) + "&maxCorrect=" + winningRun,
+		data: "name=" + oldPlayerName + "&maxFingers=" + (correctGuess? 0 : cBet) + "&maxCorrect=" + winningRun + "&maxIncorrect=" + losingRun,
 		dataType: "json",
 		success: function(msg){							
 			//Updated!
