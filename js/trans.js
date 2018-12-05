@@ -7,9 +7,8 @@ $.openForm = function(){
 	$('.formPanel .ui-collapsible-contain:eq(0)').trigger('expand');
 
 	// Show form
-    $("#form").show();
     $("#game-contents").hide();
-
+    $("#form").fadeIn();
 };
 
 //Custom function for closing menu
@@ -17,7 +16,7 @@ $.closeForm = function(){
 
 	// New
 	$("#form").hide();
-	$("#game-contents").show();
+	$("#game-contents").fadeIn();
 
     // Show cancel
     $("#cancel").show();
